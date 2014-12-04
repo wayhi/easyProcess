@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>HierarchyData</key>
+	<array>
+		<string>800281F2-2C6D-418D-8043-4E5127F1434C</string>
+	</array>
+	<key>ProjectItems</key>
+	<dict>
+		<key>800281F2-2C6D-418D-8043-4E5127F1434C</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va1wDAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAA
+				AAAAAAAAAAAAAAAAAAAAZAIAAAwAAAABAQAAQXBwbGlj
+				YXRpb25zBAAAAAEBAABNQU1QBgAAAAEBAABodGRvY3MA
+				AAsAAAABAQAAZWFzeVByb2Nlc3MAEAAAAAEGAAAEAAAA
+				GAAAACQAAAA0AAAACAAAAAQDAACMAAAAAAAAAAgAAAAE
+				AwAAr04NAAAAAAAIAAAABAMAAEViDQAAAAAACAAAAAQD
+				AACcuw0AAAAAABAAAAABBgAAYAAAAHAAAACAAAAAkAAA
+				AAgAAAAABAAAQbosgTsAAAAYAAAAAQIAAAIAAAAAAAAA
+				DwAAAAAAAAAAAAAAAAAAAAAAAAABBQAABAAAAAMDAAAB
+				AAAAEQAAAAEJAABmaWxlOi8vbG9jYWxob3N0LwAAAAwA
+				AAABAQAATWFjaW50b3NoIEhECAAAAAQDAAAAAMD5GwAA
+				AAgAAAAABAAAQbnmyGcAAAAkAAAAAQEAAEI0Mzc5RTg0
+				LTMwNDctM0VERS05RDg0LTc3MDJGMzFENkQ3MBgAAAAB
+				AgAAgQAAAAEACADvFwAAAQAIAAAAAAAAAAAAAQAAAAEB
+				AAAvAAAAtgAAAAECAAAxMmI4ZWVmZjc4N2MzN2ZjYmRk
+				ZGQzNWVjNDM1M2UyOTllYzFjZTAxOzAwMDAwMDAwOzAw
+				MDAwMDAwOzAwMDAwMDAwMDAwMDAwMjA7Y29tLmFwcGxl
+				LmFwcC1zYW5kYm94LnJlYWQtd3JpdGU7MDAwMDAwMDE7
+				MDEwMDAwMDQ7MDAwMDAwMDAwMDBkYmI5YzsvYXBwbGlj
+				YXRpb25zL21hbXAvaHRkb2NzL2Vhc3lwcm9jZXNzAAAA
+				wAAAAP7///8BAAAAAAAAAA8AAAAEEAAASAAAAAAAAAAF
+				EAAAoAAAAAAAAAAQEAAAyAAAAAAAAABAEAAAuAAAAAAA
+				AABVEAAA8AAAAAAAAABWEAAA6AAAAAAAAAACIAAAmAEA
+				AAAAAAAFIAAA/AAAAAAAAAAQIAAAGAEAAAAAAAARIAAA
+				TAEAAAAAAAASIAAALAEAAAAAAAATIAAAPAEAAAAAAAAg
+				IAAAeAEAAAAAAAAwIAAA6AAAAAAAAACA8AAApAEAAAAA
+				AAA=
+				</data>
+				<key>FileURL</key>
+				<string>file://localhost/Applications/MAMP/htdocs/easyProcess/</string>
+				<key>RelativePath</key>
+				<string>./easyProcess</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>easyProcess</string>
+			<key>ItemType</key>
+			<string>FolderReference</string>
+		</dict>
+	</dict>
+	<key>com.barebones.DocumentFormatVersion</key>
+	<integer>5</integer>
+	<key>com.barebones.DocumentType</key>
+	<string>Project</string>
+</dict>
+</plist>
