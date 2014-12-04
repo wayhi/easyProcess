@@ -28,7 +28,7 @@ class LoginController extends \BaseController {
 
       if ($user)
       {
-        return Redirect::route('admin.pages.index');
+        return Redirect::route('Nav.nav');
       }
     }
     catch(\Exception $e)
