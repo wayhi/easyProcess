@@ -14,6 +14,8 @@
 
 Route::post('/','app\controllers\login\LoginController@postLogin');
 Route::get('/', array('as' => 'login', 'uses' => 'app\controllers\login\LoginController@getLogin'));
+Route::get('login', array('as' => 'login', 'uses' => 'app\controllers\login\LoginController@getLogin'));
+Route::post('login','app\controllers\login\LoginController@postLogin');
 Route::get('Nav/nav', array('as' => 'Nav.nav', 'uses' => 'app\controllers\nav\NavController@showNav'));
 
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
@@ -28,9 +30,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
     
 });
 
-Route::group(array('prefix' => 'Nav', 'before'=> 'auth.admin'),function()
+Route::group(array('prefix' => 'nav', 'before' => 'auth.login'), function()
 {
-	Route::any('/','app\controllers\login\NavController@showNav');
+	Route::any('/', 'app\controllers\nav\NavController@index');
 	
 	Route::resource('nav', 'app\controllers\nav\NavController@showNav');
 

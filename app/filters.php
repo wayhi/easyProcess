@@ -95,3 +95,10 @@ Route::filter('auth.admin', function()
         return Redirect::route('admin.login');
     }
 });
+
+Route::filter('auth.login', function()  
+{
+    if ( ! Sentry::check()) {
+        return Redirect::route('login');
+    }
+});
