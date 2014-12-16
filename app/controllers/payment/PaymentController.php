@@ -1,15 +1,13 @@
 <?php
 
+
 namespace app\controllers\payment;
 
 use Auth, BaseController, Form, Input, Redirect, Sentry, View;
 
 class PaymentController extends \BaseController {
 
-	/**
-   * 显示导航界面
-   * @return View
-   */
+
    
     public function create()
   {
@@ -18,7 +16,7 @@ class PaymentController extends \BaseController {
   
   }
   
-  public function edit()
+  public function edit($id)
   {
     //return View::make('Nav.nav');
     
@@ -33,6 +31,23 @@ class PaymentController extends \BaseController {
   
   }
  
-  
+	public function index(){
+	
+	
+	}
+	
+	public function show($id) {
+	
+	
+	}  
+	
+	public function update($id) {
+	
+	}
+	
+	public function destroy($id) {
+	
+	
+	}
  
 }

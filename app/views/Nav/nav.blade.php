@@ -6,8 +6,9 @@
   <title>easyProcess</title>
 
   @include('admin._partials.assets')
+
 <link rel="stylesheet" href="{{ URL::asset('css/local.css') }}">
-<!--script src="http://www.surrealcms.com/src/script/min/surreal.min.js"></script--!>
+<link rel="stylesheet" href="{{ URL::asset('css/screen.css') }}">
 </head>
 <body>
 
@@ -20,7 +21,9 @@
 					<span class="circle circle-lg circle-blue">
 						<i class="fa fa-exchange fa-rotate-90"></i>
 					</span>
-					<h4><a href="{{URL::route('payment.create')}}">付款申请</a>
+
+					<h4><a href="{{ URL::route('payment.create') }}">付款申请</a>
+
 					
 					</h4>
 					<p>
@@ -66,10 +69,7 @@
 				</div>
 				
 			</div>
-			<div class="call-to-action-buttons">
-				<a class="btn btn-success" href="/signup">Sign up for a free 30-day trial</a>
-				<a class="btn btn-link" href="#surreal-in-six-steps">Learn more</a>
-			</div>
+
 		</div>
 	</section>
 

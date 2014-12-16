@@ -16,7 +16,7 @@ class PagesController extends \BaseController {
 
     public function show($id)
     {
-        return \View::make('admin.pages.show')->with('page', Page::find($id))->withAuthor(Sentry::findUserById(Page::find($id)->user_id)->name);
+        return \View::make('admin.pages.show')->with('page', Page::find($id))->withAuthor(Sentry::findUserById(Page::find($id)->user_id)->first_name);
     }
 
     public function create()

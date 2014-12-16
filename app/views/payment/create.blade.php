@@ -3,6 +3,7 @@
 @section('main')
  
     
+    
 
     {{ Notification::showAll() }}
      
@@ -11,6 +12,7 @@
                     {{ implode('<br>', $errors->all()) }}
             </div>
     @endif
+
 
     {{ Form::open(array('route' => 'payment.store')) }}
     
@@ -69,11 +71,19 @@
 </div>	
 	
        
+
+    
+
+
         <div class="form-actions">
             {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
             <a href="{{ URL::route('admin.pages.index') }}" class="btn btn-large">取消</a>
         </div>
+
 </div>
+
+
+
     {{ Form::close() }}
 
 @stop
