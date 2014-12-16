@@ -11,12 +11,12 @@
 |
 */
 
-
-Route::post('/','app\controllers\login\LoginController@postLogin');
-Route::get('/', array('as' => 'login', 'uses' => 'app\controllers\login\LoginController@getLogin'));
 Route::get('login', array('as' => 'login', 'uses' => 'app\controllers\login\LoginController@getLogin'));
 Route::post('login','app\controllers\login\LoginController@postLogin');
+Route::get('/', function(){return Redirect::route('login');});
 Route::get('Nav/nav', array('as' => 'Nav.nav', 'uses' => 'app\controllers\nav\NavController@showNav'));
+Route::get('payment/create', array('as' => 'payment.create', 'uses' => 'app\controllers\payment\PaymentController@create'));
+Route::get('payment/store', array('as' => 'payment.store', 'uses' => 'app\controllers\payment\PaymentController@store'));
 
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
 Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));

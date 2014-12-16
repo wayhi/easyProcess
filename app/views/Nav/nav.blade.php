@@ -2,115 +2,84 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>easyProcess</title>
 
   @include('admin._partials.assets')
-
+<link rel="stylesheet" href="{{ URL::asset('css/local.css') }}">
+<!--script src="http://www.surrealcms.com/src/script/min/surreal.min.js"></script--!>
 </head>
 <body>
 
-   <div class="container">
-    <div class="row">
+   
+   <section class="dark">
+		<div class="container">
+			
+			<div class="row text-center">
+				<div class="col-sm-6">
+					<span class="circle circle-lg circle-blue">
+						<i class="fa fa-exchange fa-rotate-90"></i>
+					</span>
+					<h4><a href="{{URL::route('payment.create')}}">付款申请</a>
+					
+					</h4>
+					<p>
+						Nothing to download or install. Surreal does
+						everything over FTP, SFTP, or Amazon&nbsp;S3.
+					</p>
+				</div>
+				<div class="col-sm-6">
+					<span class="circle circle-lg circle-green">
+						<i class="fa fa-file-text-o"></i>
+					</span>
+					<h4>个人报销</h4>
+					<p>
+						Select which parts of the page clients can edit.
+						Integrate without touching any code!
+					</p>
+				</div>
+				</div>
+				<div class="row text-center">
+				<div class="col-sm-6">
+					<span class="circle circle-lg circle-orange">
+						<i class="fa fa-pencil"></i>
+						
+					</span>
+					<h4>费用审批</h4>
+					<p>
+						Editing is as simple as typing on the page.
+						Your design is left intact and all changes are
+						tracked.
+					</p>
+				</div>
+				
+				<div class="col-sm-6">
+					<span class="circle circle-lg circle-orange">
+						<i class="fa fa-pencil"></i>
+					</span>
+					<h4>申请列表</h4>
+					<p>
+						Editing is as simple as typing on the page.
+						Your design is left intact and all changes are
+						tracked.
+					</p>
+				</div>
+				
+			</div>
+			<div class="call-to-action-buttons">
+				<a class="btn btn-success" href="/signup">Sign up for a free 30-day trial</a>
+				<a class="btn btn-link" href="#surreal-in-six-steps">Learn more</a>
+			</div>
+		</div>
+	</section>
 
-      <div class="span6">
-        <a href="http://job.liepin.com/318_3180922?mscid=b_o_0001" class="job-item-wrap" title="软件测试工程师" target="_blank"  onclick="_hmt.push(['_trackEvent', 'jobs', 'click', '软件测试工程师-北京-http://job.liepin.com/318_3180922?mscid=b_o_0001'])">
-          <div class="job-item">
-            <div class="job-source light-green">
-              <img class="img-responsive" src="http://gm0.lietou-static.com/user/pic_logo/big/1277/12761032.png?1413942028767">
-            </div>
-            <div class="job-company">北京锡恩投资管理有限公司</div>
-            <div class="job-title">软件测试工程师</div>
-            <div class="job-salary">年薪：10-15万</div>
-            <div class="job-comments">
-              <p>
-                  <span class="label label-default">年底双薪</span>
-                  <span class="label label-default">绩效奖金</span>
-                  <span class="label label-default">带薪年假</span>
-                  <span class="label label-default">五险一金</span>
-                  <span class="label label-default">岗位晋升</span>
-              </p>
-            </div>
-            <div class="job-meta">
-              <span class="job-location">[北京]</span><span class="job-publish-time">6小时前</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="span6">
-        <a href="http://job.liepin.com/318_3180905?mscid=b_o_0001" class="job-item-wrap" title="PHP移动端工程师" target="_blank"  onclick="_hmt.push(['_trackEvent', 'jobs', 'click', 'PHP移动端工程师-上海-http://job.liepin.com/318_3180905?mscid=b_o_0001'])">
-          <div class="job-item">
-            <div class="job-source light-green">
-              <img class="img-responsive" src="http://gm0.lietou-static.com/user/pic_logo/big/default_e.gif">
-            </div>
-            <div class="job-company">上海觐吉网络科技有限公司</div>
-            <div class="job-title">PHP移动端工程师</div>
-            <div class="job-salary">年薪：8-10万</div>
-            <div class="job-comments">
-              <p>
-                  <span class="label label-default">管理规范</span>
-                  <span class="label label-default">五险一金</span>
-                  <span class="label label-default">发展空间大</span>
-                  <span class="label label-default">绩效奖金</span>
-              </p>
-            </div>
-            <div class="job-meta">
-              <span class="job-location">[上海]</span><span class="job-publish-time">6小时前</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      </div>
- <div class="row">
-
-      <div class="span6">
-        <a href="http://job.liepin.com/318_3180922?mscid=b_o_0001" class="job-item-wrap" title="软件测试工程师" target="_blank"  onclick="_hmt.push(['_trackEvent', 'jobs', 'click', '软件测试工程师-北京-http://job.liepin.com/318_3180922?mscid=b_o_0001'])">
-          <div class="job-item">
-            <div class="job-source light-green">
-              <img class="img-responsive" src="http://gm0.lietou-static.com/user/pic_logo/big/1277/12761032.png?1413942028767">
-            </div>
-            <div class="job-company">北京锡恩投资管理有限公司</div>
-            <div class="job-title">软件测试工程师</div>
-            <div class="job-salary">年薪：10-15万</div>
-            <div class="job-comments">
-              <p>
-                  <span class="label label-default">年底双薪</span>
-                  <span class="label label-default">绩效奖金</span>
-                  <span class="label label-default">带薪年假</span>
-                  <span class="label label-default">五险一金</span>
-                  <span class="label label-default">岗位晋升</span>
-              </p>
-            </div>
-            <div class="job-meta">
-              <span class="job-location">[北京]</span><span class="job-publish-time">6小时前</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div class="span6">
-        <a href="http://job.liepin.com/318_3180905?mscid=b_o_0001" class="job-item-wrap" title="PHP移动端工程师" target="_blank"  onclick="_hmt.push(['_trackEvent', 'jobs', 'click', 'PHP移动端工程师-上海-http://job.liepin.com/318_3180905?mscid=b_o_0001'])">
-          <div class="job-item">
-            <div class="job-source light-green">
-              <img class="img-responsive" src="http://gm0.lietou-static.com/user/pic_logo/big/default_e.gif">
-            </div>
-            <div class="job-company">上海觐吉网络科技有限公司</div>
-            <div class="job-title">PHP移动端工程师</div>
-            <div class="job-salary">年薪：8-10万</div>
-            <div class="job-comments">
-              <p>
-                  <span class="label label-default">管理规范</span>
-                  <span class="label label-default">五险一金</span>
-                  <span class="label label-default">发展空间大</span>
-                  <span class="label label-default">绩效奖金</span>
-              </p>
-            </div>
-            <div class="job-meta">
-              <span class="job-location">[上海]</span><span class="job-publish-time">6小时前</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      </div>
-	<hr>
+   
+   
+   
+   
+   
+   
+   <hr>
 	<div class="footer">
         <p>&copy; easyProcess.cn 2014</p>
     </div>

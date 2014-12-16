@@ -28,9 +28,10 @@
         {{ Form::label('email', 'Email') }}
         
         <div class="controls">
-          
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-envelope"></i></span>
           {{ Form::text('email', '',array('placeholder' => '邮箱地址')) }}
-        
+        </div>
         </div>
       </div>
 
