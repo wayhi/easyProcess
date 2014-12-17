@@ -65,17 +65,59 @@
 	</div>
 	<div class="span2">
 	
-	<button class="btn btn-small btn-info" type="button">关联付款...</button>
+	<button class="btn btn-small btn-info" type="button">关联预付款...</button>
 	
 	</div>
 </div>	
+	<br>
+<table id="payment-matrix" class="table">
+
+	<thead> 
+	<tr>
+		<td>#</td>
+		<td>成本中心</td>
+		<td>费用科目</td>
+		<td>金额</td>
+	</tr>
+	</thead>
 	
+	<tbody>
+	<tr>
+		<td>1.</td>
+		<td>
+			
+			{{Form::select('cctr_1', array('1' => '420000','2'=>'420010')) }}
+			
+			
+			
+			
+		</td>
+		
+		<td>
+			{{Form::text('acct_1','')}}
+		</td>
+		
+		<td>
+			<div class="input-prepend">
+				<span class="add-on">¥</span>
+				{{Form::number('amount_1','0.00',array('class'=>'span2'))}}
+			</div>
+		</td>
+	</tr>
+	</tbody>
+	
+</table>   
+	
+<<<<<<< Updated upstream
        
 
     
 
 
         <div class="form-actions">
+=======
+<div class="form-actions">
+>>>>>>> Stashed changes
             {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
             <a href="{{ URL::route('admin.pages.index') }}" class="btn btn-large">取消</a>
         </div>
