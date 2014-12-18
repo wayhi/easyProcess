@@ -86,7 +86,7 @@
 		<td>1.</td>
 		<td>
 			
-			{{Form::select('cctr_1', array('1' => '420000','2'=>'420010')) }}
+			{{Form::select('cctr_1', $cctr_options)}}
 			
 			
 			
@@ -94,7 +94,7 @@
 		</td>
 		
 		<td>
-			{{Form::text('acct_1','')}}
+			{{Form::select('acct_1',$acct_options)}}
 		</td>
 		
 		<td>
@@ -108,16 +108,9 @@
 	
 </table>   
 	
-<<<<<<< Updated upstream
-       
 
-    
-
-
-        <div class="form-actions">
-=======
 <div class="form-actions">
->>>>>>> Stashed changes
+
             {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
             <a href="{{ URL::route('admin.pages.index') }}" class="btn btn-large">取消</a>
         </div>
