@@ -7,7 +7,7 @@
 
   @include('admin._partials.assets')
 
-
+<link rel="stylesheet" href="{{ URL::asset('css/local.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/screen.css') }}">
 </head>
 <body>

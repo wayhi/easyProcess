@@ -14,54 +14,41 @@
     @endif
 
 
-    {{ Form::open(array('route' => 'payment.store')) }}
+    {{ Former::open()->id('PaymentForm')->Method('POST')->class('form-inline') }}
     
     <div class="container">
 			
 			<div class="row">
-				<div class="span6">
-					
-					<div class="control-group">
-					
-            			<h4>收款方：</h4>
-            			{{ Form::text('title', '', array('class' => 'span5')) }}
-					</div>
+				<div class="span6">				
+            		
+            			
+            			{{ Former::text('Payee')->class('span5')->id('Payee')->label('收款方：') }}
 					
 				</div>
 					
 				<div class="span6">
-					<div class="control-group">
-						<h4>银行账号：</h4>
-            			{{ Form::text('bank', '', array('class' => 'span5')) }}
-					</div>
+					
+					{{ Former::text('bank')->class('span5')->id('bank')->label('银行账号：') }}
 					
 				</div>
 			</div>
 			
 			<div class="row">
-			
 				<div class="span6">
-					<div class="control-group">
-					<h4>总金额：</h4>
-					{{ Form::text('amount', '', array('class' => 'span3')) }}
-					</div>
+				{{ Former::text('total_amount')->class('span3')->id('total_amount')->label('总金额：')->prepend('￥') }}
 				</div>
-				
 				<div class="span6">
-					<div class="control-group">
-					<h4>含增值税：</h4>
-					{{ Form::text('vat', '', array('class' => 'span3')) }}
-					</div>
+					{{ Former::number('vat')->class('span3')->id('vat')->label('含增值税：')->prepend('￥') }}
 				</div>
 				
 			</div>
 			
  <div class="row">
  	<div class="span6">
-    <label class="checkbox">
-    	{{Form::checkbox('is_downpayment','') }}
-    	预付款
-    </label>    
+    
+    	{{Former::checkbox()->text('预付款')->id('is_downpayment') }}
+    	
+    
 	</div>
 	<div class="span2">
 	
@@ -74,7 +61,7 @@
 
 	<thead> 
 	<tr>
-		<td>#</td>
+		<td></td>
 		<td>成本中心</td>
 		<td>费用科目</td>
 		<td>金额</td>
@@ -82,28 +69,41 @@
 	</thead>
 	
 	<tbody>
+	@for ($i = 1; $i <= $row_count; $i++)
+    
+
 	<tr>
-		<td>1.</td>
+		<td>{{$i}}</td>
 		<td>
 			
-			{{Form::select('cctr_1', $cctr_options)}}
-			
-			
+			{{Former::select()->id('cctr_'.$i)->options($cctr_options)}}
 			
 			
 		</td>
 		
 		<td>
-			{{Form::select('acct_1',$acct_options)}}
+			{{Former::select()->id('acct_'.$i)->options($acct_options)}}
 		</td>
 		
 		<td>
-			<div class="input-prepend">
-				<span class="add-on">¥</span>
-				{{Form::number('amount_1','0.00',array('class'=>'span2'))}}
-			</div>
+			
+				{{Former::number()->id('amount_'.$i)->prepend('￥')->class('span2')}}
+			
 		</td>
 	</tr>
+	@endfor
+	
+	<tr>
+		<td>
+			{{ Former::open()->route('payment.create',$row_count+1) }}
+			{{ Former::submit('+')->class('btn btn-success btn-save btn-mini') }}
+			{{ Former::close() }}
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
 	</tbody>
 	
 </table>   
@@ -111,8 +111,8 @@
 
 <div class="form-actions">
 
-            {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
-            <a href="{{ URL::route('admin.pages.index') }}" class="btn btn-large">取消</a>
+            {{ Former::submit('新增')->class('btn btn-success btn-save') }}
+            <a href="{{ URL::route('admin.pages.index') }}" class="btn">取消</a>
         </div>
 
 </div>
