@@ -21,7 +21,7 @@ Route::get('Nav/nav', array('as' => 'Nav.nav', 'uses' => 'app\controllers\nav\Na
 //Route::get('payment/store', array('as' => 'payment.store', 'uses' => 'app\controllers\payment\PaymentController@store'));
 
 //Route::get('payment/create', array('as' => 'payment.create', 'uses' => 'app\controllers\payment@create'));
-Route::resource('payment', 'App\Controllers\payment\PaymentController');
+Route::Resource('payment', 'App\Controllers\payment\PaymentController');
 
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
 Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
@@ -38,12 +38,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
 
 );
 
-Route::group(array('prefix' => 'payment', 'before' => 'auth.login'), function()
-{
-	Route::get('/', 'App\Controllers\payment\PaymentController@create');
-	Route::post('create','App\Controllers\payment\PaymentController@create');
-	//Route::resource('payment', 'App\Controllers\payment\PaymentController');
-});
+//Route::group(array('prefix' => 'payment', 'before' => 'auth.login'), function()
+//{
+//	Route::get('/', 'App\Controllers\payment\PaymentController@create');
+//	Route::post('create','App\Controllers\payment\PaymentController@edit');
+//	Route::resource('edit','App\Controllers\payment\PaymentController@edit');
+//	//Route::resource('payment', 'App\Controllers\payment\PaymentController');
+//});
 
 Route::group(array('prefix' => 'Nav', 'before' => 'auth.login'), function()
 {

@@ -14,7 +14,7 @@
     @endif
 
 
-    {{ Former::open()->id('PaymentForm')->Method('POST')->class('form-inline') }}
+    {{ Former::open()->id('PaymentForm')->route('payment.store')->Method('POST')->class('form-inline') }}
     
     <div class="container">
 			
@@ -61,7 +61,7 @@
 
 	<thead> 
 	<tr>
-		<td></td>
+		<td>{{Former::text('row_count')->type('hidden')->value($row_count)}}</td>
 		<td>成本中心</td>
 		<td>费用科目</td>
 		<td>金额</td>
@@ -76,7 +76,7 @@
 		<td>{{$i}}</td>
 		<td>
 			
-			{{Former::select()->id('cctr_'.$i)->options($cctr_options)}}
+			{{Former::select()->id('cctr_'.$i)->options($cctr_options)->select($cctr_1)}}
 			
 			
 		</td>
@@ -95,7 +95,7 @@
 	
 	<tr>
 		<td>
-			{{ Former::open()->route('payment.create',$row_count+1) }}
+			{{ Former::open()->route('payment.edit',array('act'=>'addrow','row_count'=>$row_count))->method('post') }}
 			{{ Former::submit('+')->class('btn btn-success btn-save btn-mini') }}
 			{{ Former::close() }}
 		</td>
