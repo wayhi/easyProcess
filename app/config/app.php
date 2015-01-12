@@ -126,6 +126,7 @@ return array(
 		'Krucas\Notification\NotificationServiceProvider',
 		'Former\FormerServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 
 	),
 

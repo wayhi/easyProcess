@@ -12,7 +12,7 @@
 </head>
 <body>
 
-   
+   {{Notification::showAll()}}
    <section class="dark">
 		<div class="container">
 			
@@ -22,7 +22,7 @@
 						<i class="fa fa-exchange fa-rotate-90"></i>
 					</span>
 
-					<h4><a href="{{ URL::route('payment.create') }}">付款申请</a>
+					<h4><a href="{{ URL::route('payment.start') }}">付款申请</a>
 
 					
 					</h4>
@@ -48,7 +48,7 @@
 						<i class="fa fa-pencil"></i>
 						
 					</span>
-					<h4>费用审批</h4>
+					<h4><h4><a href="{{ URL::route('vendor.create') }}">供应商申请</a></h4>
 					<p>
 						Editing is as simple as typing on the page.
 						Your design is left intact and all changes are

@@ -36,4 +36,15 @@ class LoginController extends \BaseController {
       return Redirect::route('login')->withErrors(array('login' => $e->getMessage()));
     }
   }
+  
+   /**
+   * 注销
+   * @return Redirect
+   */
+  public function getLogout()
+  {
+    Sentry::logout();
+
+    return View::make('Login.login');
+  }
 }
