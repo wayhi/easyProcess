@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
-use View, Input;
-class /admin/ApprovalController extends \BaseController {
+use View, Input, V_account, V_cctr, User;
+class ApprovalController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -22,7 +22,25 @@ class /admin/ApprovalController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.approval');
+		
+		$view=View::make('admin.approval');
+			
+  		if(Input::has('row_count')){
+  			$row_count = intval(Input::get('row_count'));
+  			//$cctr_1 = intval(Input::get('cctr_1'));
+  		}else{
+  			$row_count =1;
+  	
+  		}
+  	
+  		$acct_options = V_account::getList();//费用科目列表
+  		$cctr_options=V_cctr::getList();//成本中心列表
+  		$user_options=User::activated()->orderBy('last_name')->lists('last_name','id');
+  		$view->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)
+  		->with('user_options',$user_options)->with('row_count',$row_count);
+  	
+  		return $view;
+  	
 	}
 
 	/**

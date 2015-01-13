@@ -8,25 +8,23 @@
     {{ Notification::showAll() }}
      
 	
-    {{ Former::secure_open()->id('ApprovalForm')->route('approval.store')->Method('POST')->class('form-inline')    }}
+    {{ Former::secure_open()->id('ApprovalForm')->route('admin.approval.store')->Method('POST')->class('form-inline')    }}
    
     <div class="container">
 			
 			<div class="row">
-				<div class="span6">				
-            		
-            		{{Former::select('control_type','审批控制类型')->options(['成本中心','费用科目','费用金额'])}}
-            			
-				</div>
-					
 				<div class="span6">
-					{{Former::select('control_id',false)}}
+				{{ Former::select('control_type')->class('span3')->label('审批类型：')->options(['1'=>'成本中心','2'=>'费用科目','3'=>'付款金额'])}}
 				</div>
+				<div class="span6">
+					{{ Former::select('control_id')->class('span3')->label('审批项：')->options($cctr_options) }}
+				</div>
+				
 			</div>
 			
 			<div class="row">
 				<div class="span6">
-				{{ Former::text('authority_user')->class('span3')->label('审批人：')}}
+				{{ Former::select('authority_user')->class('span3')->label('审批人：')->options($user_options)}}
 				</div>
 				<div class="span6">
 					{{ Former::text('approval_limit')->class('span3')->label('审批金额：')->prepend('￥') }}
@@ -37,13 +35,18 @@
  <div class="row">
  	<div class="span4">
     
-    	{{Former::checkbox('mandatory',false)->text('必须包括')}}
+    	{{ Former::select('approval_level')->class('span3')->label('审批层级：')->options(['1'=>'1','2'=>'2','3'=>'3','4'=>'4'])}}
+    	
     	
 	</div>
 	
+	
+	<div class="span4"></div>
+</div>
+<div class="row">	
 	<div class="span4">
 		
-		{{Former::select('approval_level',false)->text('必须包括')->option(['1','2','3','4','5','6','7','8','9'])}}
+		{{Former::checkbox('mandatory',false)->text('固定审批人')}}
 	
 	
 	</div>
@@ -60,7 +63,7 @@
 
 	<thead> 
 	<tr>
-		<td>{{Former::text('row_count')->type('hidden')->value($row_count)}}</td>
+		<td></td>
 		<td>控制类型</td>
 		<td>控制项目</td>
 		<td>审批人</td>
@@ -69,7 +72,7 @@
 	</thead>
 	
 	<tbody>
-	@for ($i = 1; $i <= $row_count; $i++)
+	@for ($i = 1; $i <= 1; $i++)
     
 
 	<tr>
