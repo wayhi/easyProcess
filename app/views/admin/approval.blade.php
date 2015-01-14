@@ -1,10 +1,27 @@
 @extends('admin._layouts.default')
  
 @section('main')
- 
-    
-    
+ 	 
+	<script src="{{ URL::asset('js/jQuery.FillOptions.js') }}"></script> 
 
+ 	
+   
+
+    
+	<script>
+		//$("#control_type").AddOption("请选择","-1",true,0);
+		$(function(){
+			$("#control_type").CascadingSelect( 
+                $("#control_id"), 
+                "/getApprovalSettings", 
+                {textfield:"options",valuefiled:"id",parameter:"term"}, 
+                function(){ 
+                    $("#control_id").AddOption("请选择","-1",true,0);   
+                } 
+            ); 
+		});
+		
+	</script>
     {{ Notification::showAll() }}
      
 	
@@ -12,30 +29,33 @@
    
     <div class="container">
 			
-			<div class="row">
+		<div class="row">
 				<div class="span6">
-				{{ Former::select('control_type')->class('span3')->label('审批类型：')->options(['1'=>'成本中心','2'=>'费用科目','3'=>'付款金额'])}}
+				{{ Former::select('control_type')->id('control_type')->class('span3')->label('审批类型：')
+				->options(['1'=>'成本中心','2'=>'费用科目','3'=>'付款金额'])}}
 				</div>
 				<div class="span6">
-					{{ Former::select('control_id')->class('span3')->label('审批项：')->options($cctr_options) }}
+					{{ Former::select('control_id')->id('control_id')->class('span3')->label('审批项：')->options($cctr_options) }}
 				</div>
 				
 			</div>
 			
-			<div class="row">
+		<div class="row">
 				<div class="span6">
 				{{ Former::select('authority_user')->class('span3')->label('审批人：')->options($user_options)}}
 				</div>
+				
 				<div class="span6">
-					{{ Former::text('approval_limit')->class('span3')->label('审批金额：')->prepend('￥') }}
+					{{ Former::text('approval_limit')->class('span2')->id('approval_limit')->label('审批金额：')->prepend('￥') }}
 				</div>
 				
 			</div>
 			
- <div class="row">
+ 		<div class="row">
  	<div class="span4">
     
-    	{{ Former::select('approval_level')->class('span3')->label('审批层级：')->options(['1'=>'1','2'=>'2','3'=>'3','4'=>'4'])}}
+    	{{ Former::select('approval_level')->class('span3')->label('审批层级：')->inlineHelp('按层级从低到高审批')
+    	->options(['1'=>'1','2'=>'2','3'=>'3','4'=>'4'])}}
     	
     	
 	</div>
@@ -43,7 +63,8 @@
 	
 	<div class="span4"></div>
 </div>
-<div class="row">	
+
+		<div class="row">	
 	<div class="span4">
 		
 		{{Former::checkbox('mandatory',false)->text('固定审批人')}}
@@ -53,13 +74,13 @@
 	
 	<div class="span4">
 	
-		{{Former::checkbox('activated',false)->text('有效')->check('checked')}}
+		{{Former::checkbox('activated',false)->text('有效')->check()}}
 	
 	</div>
 		
 </div>	
-	<br>
-<table id="payment-matrix" class="table">
+	<hr>
+<table id="approval-matrix" class="table">
 
 	<thead> 
 	<tr>
@@ -95,7 +116,7 @@
 <div class="form-actions">
 
             {{ Former::submit('新增')->class('btn btn-success btn-save')->name('submit') }}
-            <a href="{{ URL::route('Nav.nav') }}" class="btn">取消</a>
+            <a href="{{ URL::route('Nav.nav') }}" class="btn">退出</a>
         </div>
 
 </div>

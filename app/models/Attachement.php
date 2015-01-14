@@ -31,5 +31,10 @@ class Attachement extends Eloquent implements StaplerableInterface{
         parent::__construct($attributes);
     }
     
+    public function belongsToPayment(){
+    	
+    	return $this->belongsTo('Payment','parent_id','id');
+    
+    }
     
 }

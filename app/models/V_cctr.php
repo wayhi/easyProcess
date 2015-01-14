@@ -13,7 +13,7 @@ class V_cctr extends \Eloquent {
 	
 	if(count($cctrs)>0 ) {
   	
-  		$cctr_options = array_combine($cctrs->lists('id'), $cctrs->lists('cctr_options'));
+  		$cctr_options = array_combine($cctrs->lists('id'), $cctrs->lists('options'));
   	} else {
   	
   		$cctr_options = array(null, 'Not Available');

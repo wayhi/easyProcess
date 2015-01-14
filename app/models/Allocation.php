@@ -7,7 +7,7 @@ class Allocation extends \Eloquent {
 	
 	public function belongsToPayment(){
 	
-		return this->belongsTo('Payment','pmt_id','id');
+		return $this->belongsTo('Payment','pmt_id','id');
 	
 	}
 }

@@ -9,7 +9,7 @@ class V_account extends \Eloquent {
   	
   		if(count($accts)>0 ) {
   				
-  			$acct_options = array_combine($accts->lists('id'),  $accts->lists('acct_options'));
+  			$acct_options = array_combine($accts->lists('id'),  $accts->lists('options'));
   		
   		} else {
   	

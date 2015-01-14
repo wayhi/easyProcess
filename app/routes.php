@@ -32,6 +32,24 @@ Route::group(array('before'=>'auth.login'),function(){
 		return DB::table('v_bankinfo')->where('vendor_name',Input::get('term'))->lists('bank_info');
 	
 	});	
+	Route::get('getApprovalSettings',function(){
+		
+		switch(Input::get('term')){
+			
+			case "1":
+				return V_cctr::all()->toJson();
+			break;
+			case "2":
+				return V_account::all()->toJson();
+			break;
+			case "3":
+			break;
+		
+		}
+		
+		
+	});
+	
 	Route::post('payment/create',array('as'=>'payment.create','uses' => 'App\Controllers\payment\PaymentController@create'));		
 	Route::Resource('payment', 'App\Controllers\payment\PaymentController');
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
@@ -42,7 +60,7 @@ Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controll
 Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
 Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
 
-Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
+Route::group(array('prefix' => 'admin', 'before' => 'auth.login'), function()
 {
     Route::any('/', 'App\Controllers\Admin\PagesController@index');
     Route::resource('articles', 'App\Controllers\Admin\ArticlesController');

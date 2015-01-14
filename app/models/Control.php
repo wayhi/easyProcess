@@ -6,8 +6,14 @@ class Control extends \Eloquent {
 	
 	public function control(){
 		
-		return this->morphTo();
+		return $this->morphTo();
 	
+	
+	}
+	
+	public function user(){
+	
+		return $this->belongsTo('User','authority_user','id');
 	
 	}
 }
