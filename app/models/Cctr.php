@@ -7,7 +7,7 @@ class Cctr extends \Eloquent {
 	
 	public function controls(){
 	
-		return this->morphMany('Control','control');
+		return $this->morphMany('Control','control');
 	
 	}
 	

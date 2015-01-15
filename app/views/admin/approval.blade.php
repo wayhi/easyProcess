@@ -35,7 +35,7 @@
 				->options(['1'=>'成本中心','2'=>'费用科目','3'=>'付款金额'])}}
 				</div>
 				<div class="span6">
-					{{ Former::select('control_id')->id('control_id')->class('span3')->label('审批项：')->options($cctr_options) }}
+					{{ Former::select('control_id')->id('control_id')->class('span3')->label('审批项：')->options($options) }}
 				</div>
 				
 			</div>
@@ -87,23 +87,24 @@
 		<td></td>
 		<td>控制类型</td>
 		<td>控制项目</td>
+		<td>审批层级</td>
 		<td>审批人</td>
 		<td>审批金额</td>
 	</tr>
 	</thead>
 	
 	<tbody>
-	@for ($i = 1; $i <= 1; $i++)
+	@for ($i = 1; $i <=$row_count; $i++)
     
 
 	<tr>
 		<td>{{$i}}</td>
-		<td></td>
+		@if($control_id===1)<td>成本中心</td>@endif
+		<td>{{{$options[$control_id]}}}</td>
+		<td>{{{$arr_approval_level[$i]}}}</td>
 		
-		<td></td>
-		
-		<td></td>
-		<td></td>
+		<td>{{{$arr_authority_user[$i]}}}</td>
+		<td>{{{$arr_approval_limit[$i]}}}</td>
 	</tr>
 	@endfor
 	

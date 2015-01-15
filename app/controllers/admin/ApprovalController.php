@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers\Admin;
-use View, Input, V_account, V_cctr, User,Redirect, Control,Validator;
+use View, Input, V_account, V_cctr, User,Redirect, Control,Validator,Debugbar;
 class ApprovalController extends \BaseController {
 
 	/**
@@ -24,37 +24,56 @@ class ApprovalController extends \BaseController {
 	{
 		
 		$view=View::make('admin.approval');
-			
-  		if(Input::has('row_count')){
-  			$row_count = intval(Input::get('row_count'));
-  			
-  		}else{
-  			$row_count =1;
-  	
-  		}
+		$row_count=0;
+		$arr_authority_user=['0'=>''];
+		$arr_approval_limit=['0'=>''];
+  		$arr_approval_level=['0'=>''];
+  		$control_type_id=0;
+  		$control_id =0;
   		
-  		if(Input::has('control_type') {
-  			$control_type_id = intval(Input::get('control_type'));
+  		if(Input::has('control_type_id')) {
+  			$control_type_id = intval(Input::get('control_type_id'));
   			$control_id = intval(Input::get('control_id'));
-  			$controls=Control::with('control','belongsToUser')->where('control_type_id','=',$control_type_id)
-  			->where('control_id','=',$control_id)->orderBy('approvel_level')->get();
-  			$i=0;
+  			$controls=Control::with('user')->where('control_type_id','=',$control_type_id)
+  			->where('control_id','=',$control_id)->orderBy('approval_level')->get();
+  			
   			
   			foreach($controls as $control){
-  				$control_name = array_add($control_name,''.$i,$control->control->cctr_code);
-  				$authority_user = array_add($authority_user,''.$i,$control->user->last_name);
-  			
+  				$row_count++;
+  				$arr_authority_user = array_add($arr_authority_user,''.$row_count,$control->user->last_name);
+  				$arr_approval_limit = array_add($arr_approval_limit,''.$row_count,$control->approval_limit);
+  				$arr_approval_level = array_add($arr_approval_level,''.$row_count,$control->approval_level);
+  				
   			}
   		}
   		
+  		Debugbar::info($arr_authority_user);
+  		Debugbar::info($row_count);
+  
+  		
+  		switch($control_type_id){
+  		
+  			case 1:$options=V_cctr::getList();//成本中心列表
+  			break;
+  			case 2:$options = V_account::getList();//费用科目列表
+  			break;
+  			default:$options=[''];
+  			
+  		}
   		
   		
-  		$acct_options = V_account::getList();//费用科目列表
-  		$cctr_options=V_cctr::getList();//成本中心列表
+  		
   		$user_options=User::activated()->orderBy('last_name')->lists('last_name','id');
-  		$view->with('user_options',$user_options)->with('row_count',$row_count)->with('cctr_options',$cctr_options);
+  		return $view->with('user_options',$user_options)
+  		->with('arr_authority_user', $arr_authority_user)
+  		->with('arr_approval_limit',$arr_approval_limit)
+  		->with('arr_approval_level',$arr_approval_level)
+  		->with('row_count',$row_count)
+  		->with('control_id',$control_id)
+  		->with('control_type_id',$control_type_id)
+  		->with('options',$options);
   	
-  		return $view;
+  		
   	
 	}
 
@@ -94,8 +113,9 @@ class ApprovalController extends \BaseController {
     			break;
     			default:
     				$control->control_type = '';
-    		}
-    		$control->control_id = intval(Input::get('control_id'));
+    		} 
+    		$control_id = intval(Input::get('control_id'));
+    		$control->control_id = $control_id;
     		$control->authority_user = intval(Input::get('authority_user'));
     		$control->approval_limit = floatval(Input::get('approval_limit'));
     		$control->approval_level = intval(Input::get('approval_level'));
@@ -122,7 +142,7 @@ class ApprovalController extends \BaseController {
   					throw new \Exception('数据提交没有成功！');
   			}
     		
-			return Redirect::route('admin.approval.create')->withInput();
+			return Redirect::route('admin.approval.create',['control_type_id'=>$control_type_id,'control_id'=>$control_id])->withInput();
 		
 		
 		}
