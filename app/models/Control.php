@@ -18,4 +18,11 @@ class Control extends \Eloquent {
 		return $this->belongsTo('User','authority_user','id');
 	
 	}
+	
+	
+	public function findApprover($pmt){
+	
+	}
+	
+	
 }

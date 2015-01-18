@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers\Admin;
-use View, Input, V_account, V_cctr, User,Redirect, Control,Validator,Debugbar;
+use View, Input, V_account, V_cctr, User,Redirect, Control,Validator,Debugbar,Crypt;
 class ApprovalController extends \BaseController {
 
 	/**
@@ -24,12 +24,10 @@ class ApprovalController extends \BaseController {
 	{
 		
 		$view=View::make('admin.approval');
-		$row_count=0;
-		$arr_authority_user=['0'=>''];
-		$arr_approval_limit=['0'=>''];
-  		$arr_approval_level=['0'=>''];
+		
   		$control_type_id=0;
   		$control_id =0;
+  		$user_options=User::activated()->orderBy('last_name')->lists('last_name','id');
   		
   		if(Input::has('control_type_id')) {
   			$control_type_id = intval(Input::get('control_type_id'));
@@ -37,42 +35,32 @@ class ApprovalController extends \BaseController {
   			$controls=Control::with('user')->where('control_type_id','=',$control_type_id)
   			->where('control_id','=',$control_id)->orderBy('approval_level')->get();
   			
+  			switch($control_type_id){
+  		
+  				case 1:$options=V_cctr::getList();//成本中心列表
+  				break;
+  				case 2:$options = V_account::getList();//费用科目列表
+  				break;
+  				default:$options=[''];
   			
-  			foreach($controls as $control){
-  				$row_count++;
-  				$arr_authority_user = array_add($arr_authority_user,''.$row_count,$control->user->last_name);
-  				$arr_approval_limit = array_add($arr_approval_limit,''.$row_count,$control->approval_limit);
-  				$arr_approval_level = array_add($arr_approval_level,''.$row_count,$control->approval_level);
-  				
   			}
-  		}
-  		
-  		Debugbar::info($arr_authority_user);
-  		Debugbar::info($row_count);
-  
-  		
-  		switch($control_type_id){
-  		
-  			case 1:$options=V_cctr::getList();//成本中心列表
-  			break;
-  			case 2:$options = V_account::getList();//费用科目列表
-  			break;
-  			default:$options=[''];
-  			
-  		}
   		
   		
   		
-  		$user_options=User::activated()->orderBy('last_name')->lists('last_name','id');
   		return $view->with('user_options',$user_options)
-  		->with('arr_authority_user', $arr_authority_user)
-  		->with('arr_approval_limit',$arr_approval_limit)
-  		->with('arr_approval_level',$arr_approval_level)
-  		->with('row_count',$row_count)
-  		->with('control_id',$control_id)
-  		->with('control_type_id',$control_type_id)
+  		->with('controls',$controls)
   		->with('options',$options);
-  	
+  			
+  		}else{
+  			
+  			return $view->with('user_options',$user_options)
+  			->with('options',V_cctr::getList());
+  		
+  		}
+  		
+  		
+  		
+  		
   		
   	
 	}
@@ -87,22 +75,26 @@ class ApprovalController extends \BaseController {
 	{
 	
 		if(Input::has('submit')){//提交表单
-			//定义规则
+			
+    		
+    		$control_type_id = intval(Input::get('control_type'));
+    		$control_id = intval(Input::get('control_id'));
+    		//定义规则
   			
   			 $rules = array(
   			 'approval_limit'=>'required|numeric',
   			 
   			 );
-			//验证主表字段
+			//验证字段
     		$validator = Validator::make(Input::all(), $rules);
     		if($validator->fails()) {
   				//Former::withErrors($validator);
-  				return Redirect::route('admin.approval.create',array('row_count'=>$row_count))->withInput()
+  				return Redirect::route('admin.approval.create',['control_type_id'=>$control_type_id,'control_id'=>$control_id])
+  				->withInput()
   				->withErrors($validator);
 			}
     		
     		$control = new Control;
-    		$control_type_id = intval(Input::get('control_type'));
     		$control->control_type_id = $control_type_id;
     		switch($control_type_id){
     			case 1:
@@ -114,7 +106,7 @@ class ApprovalController extends \BaseController {
     			default:
     				$control->control_type = '';
     		} 
-    		$control_id = intval(Input::get('control_id'));
+    		
     		$control->control_id = $control_id;
     		$control->authority_user = intval(Input::get('authority_user'));
     		$control->approval_limit = floatval(Input::get('approval_limit'));
@@ -146,7 +138,19 @@ class ApprovalController extends \BaseController {
 		
 		
 		}
-	
+		
+		if(Input::has('refresh')){
+		
+			$control_type_id = intval(Input::get('control_type'));
+    		$control_id = intval(Input::get('control_id'));
+			return Redirect::route('admin.approval.create',['control_type_id'=>$control_type_id,'control_id'=>$control_id])->withInput();
+		
+		}
+		
+		if(Input::has('delete')){
+			echo("ok");
+			//Debugbar::info(request);
+		}
 		
 	}
 
@@ -160,6 +164,7 @@ class ApprovalController extends \BaseController {
 	public function show($id)
 	{
 		//
+		echo('show');
 	}
 
 	/**
@@ -172,6 +177,7 @@ class ApprovalController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		echo('edit');
 	}
 
 	/**
@@ -195,8 +201,23 @@ class ApprovalController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		
+		$uid=Crypt::decrypt($id);
+		$control=Control::find($uid);
+		if($control){
+			$control->delete();
+		}
+		if(Input::has('control_type_id')){
+			$control_type_id = Input::get('control_type_id');
+		}
+		
+		if(Input::has('control_id')){
+			$control_id = Input::get('control_id');
+		}
+		return redirect::route('admin.approval.create',['control_type_id'=>$control_type_id,'control_id'=>$control_id]);
 	}
+	
+	
 
 }
 

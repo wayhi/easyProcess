@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Learn Laravel 4</title>
+  <title>easyProcess</title>
 
   @include('admin._partials.assets')
 

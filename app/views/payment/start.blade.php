@@ -71,6 +71,6 @@
 
 
 
-    {{ Form::close() }}
+    {{ Former::close() }}
 
 @stop

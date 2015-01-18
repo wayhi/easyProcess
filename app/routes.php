@@ -22,7 +22,7 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::post('register',['as'=>'register','uses'=>'App\controllers\user\UserController@PostRegister']);
 	Route::get('Nav/nav', array('as' => 'Nav.nav', 'uses' => 'app\controllers\nav\NavController@showNav'));
 	Route::get('payment/start',array('as'=>'payment.start','uses'=>'App\Controllers\payment\PaymentController@start'));
-	
+	Route::post('userprofile',['as'=>'userprofile','uses'=>'App\controllers\user\UserController@editProfile']);
 	Route::get('vendorsearch',function(){
 			return Vendor::where('vendor_name','like','%'.Input::get('term').'%')->where('visible','=',1)
 			->orWhere(function($query){$query->where('vendor_code','=',Input::get('term'))->where('visible','=',1);})

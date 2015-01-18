@@ -33,7 +33,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	
 	public function controls(){
 		
-		return $this->hasMany('Control','authority_user');
+		return $this->hasMany('Control','authority_user','id');
+	}
+	
+	public function profile(){
+		return $this->hasOne('User_profile','user_id','id');
 	}
 
 }
