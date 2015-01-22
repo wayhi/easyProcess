@@ -4,7 +4,7 @@
 namespace App\Controllers\payment;
 
 
-use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control;
+use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Debugbar;
 use Auth, BaseController, Form, Input, Redirect, Sentry, View, Validator, DB;
 
 class PaymentController extends \BaseController {
@@ -203,7 +203,9 @@ class PaymentController extends \BaseController {
         				throw new \Exception('数据提交没有成功！');
         			}	
     			}	
-  			echo self::findApprovers($pid);	
+    		//	$t = self::findApprovers($pid);
+    		//	Debugbar::info($t);
+  			//echo $t[1];	
   			
   			});
   			
@@ -249,7 +251,7 @@ class PaymentController extends \BaseController {
 			//$cctr_amounts = array_add($cctr_amounts,
 			//$cctr->id,
 			$cctr_amount = Allocation::where('cctr_id','=',$cctr->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
-			
+			/*-------------------
 			$cctr_query = DB::table('controls')->where('control_id','=',$cctr->id)
 			->where('approval_start','<',$cctr_amount)
 			->where('approval_limit','>=',$cctr_amount)
@@ -261,16 +263,21 @@ class PaymentController extends \BaseController {
 			->where('control_type_id','=',1)->union($cctr_query)
 			->orderBy('approval_level');
 			$approvers_1 = $cctr_approvers->distinct()->lists('Authority_user');
+			---------------------*/
 			
-			
+			$approvers_1 = DB::table('controls')
+			->select('Authority_user')
+			->where(DB::raw('(activated=1 and control_id ='.$cctr->id.' and control_type_id=1 and authority_user<>'.$applicant_id.
+			') and ((approval_start<'.$cctr_amount.' and approval_limit>='.$cctr_amount.') or (mandatory=1))'))
+			->orderBy('approval_level')->distinct()->lists('Authority_user');
 			
 			
 		}
 		
 		foreach($arr_accounts as $account){
 			
-			$acct_amount = Allocation::where('account_id','=',$account->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
-			
+			$acct_amount = Allocation::where('acct_id','=',$account->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
+			/*-----------------------------------------------------
 			$acct_query = DB::table('controls')->where('control_id','=',$account->id)
 			->where('approval_start','<',$acct_amount)
 			->where('approval_limit','>=',$acct_amount)
@@ -282,6 +289,11 @@ class PaymentController extends \BaseController {
 			->where('control_type_id','=',2)->union($acct_query)
 			->orderBy('approval_level');
 			$approvers_2 = $acct_approvers->distinct()->lists('Authority_user');
+			----------------------------------------------------------*/
+			$approvers_2 = DB::table('controls')
+			->select('Authority_user')->where(DB::raw('(activated=1 and control_id ='.$account->id.' and control_type_id=2 and authority_user<>'.$applicant_id.
+			') and ((approval_start<'.$acct_amount.' and approval_limit>='.$acct_amount.') or (mandatory=1))'))
+			->orderBy('approval_level')->distinct()->lists('Authority_user');
 			
 		}
 		
