@@ -18,9 +18,16 @@ class Payment extends \Eloquent {
 		
 	}
 	
+	public function cctrs(){
+		
+		return $this->belongsToMany('Cctr','Allocations','pmt_id','cctr_id');
 	
+	}
 	
+	public function accounts(){
 	
+		return $this->belongsToMany('Account','Allocations','pmt_id','acct_id');
+	}
 	
 	
 }

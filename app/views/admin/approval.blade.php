@@ -30,29 +30,33 @@
     <div class="container">
 			
 		<div class="row">
-				<div class="span6">
+				<div class="span4">
 				{{ Former::select('control_type')->id('control_type')->class('span3')->label('审批类型：')
 				->options(['1'=>'成本中心','2'=>'费用科目','3'=>'付款金额'])}}
 				</div>
-				<div class="span6">
+				<div class="span4">
 					{{ Former::select('control_id')->id('control_id')->class('span3')->label('审批项：')->options($options) }}
 				</div>
 				
 			</div>
 			
 		<div class="row">
-				<div class="span6">
+				<div class="span4">
 				{{ Former::select('authority_user')->class('span3')->label('审批人：')->options($user_options)}}
 				</div>
 				
-				<div class="span6">
-					{{ Former::text('approval_limit')->class('span2')->id('approval_limit')->label('审批金额：')->prepend('￥') }}
+				<div class="span4">
+					{{ Former::text('approval_start')->class('span2')->id('approval_start')->label('审批金额下限:')->prepend('￥') }}
+				</div>	
+			
+				<div class='span4'>
+					{{ Former::text('approval_limit','')->class('span2')->id('approval_limit')->label('审批金额上限:')->prepend('￥') }}
 				</div>
 				
 			</div>
 			
  		<div class="row">
- 	<div class="span4">
+ 			<div class="span4">
     
     	{{ Former::select('approval_level')->class('span3')->label('审批层级：')->inlineHelp('按层级从低到高审批')
     	->options(['1'=>'1','2'=>'2','3'=>'3','4'=>'4'])}}
@@ -99,7 +103,8 @@
 		<td>审批类型</td>
 		<td>审批项目</td>
 		<td>审批人</td>
-		<td>审批金额</td>
+		<td>审批金额下限</td>
+		<td>审批金额上限</td>
 		<td colspan="2">操作</td>
 	</tr>
 	</thead>
@@ -120,6 +125,7 @@
 		<td>{{{$options[$control->control_id]}}}</td>
 		
 		<td>{{{$control->user->last_name}}}</td>
+		<td>{{$control->approval_start}}</td>
 		<td>{{{$control->approval_limit}}}</td>
 		<td colspan="2">
 		

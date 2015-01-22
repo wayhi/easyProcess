@@ -4,11 +4,13 @@
 namespace App\Controllers\payment;
 
 
-use V_cctr,V_account,Payment,Allocation,Notification,Attachement;
+use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control;
 use Auth, BaseController, Form, Input, Redirect, Sentry, View, Validator, DB;
 
 class PaymentController extends \BaseController {
-
+	
+	
+	
 	public function create(){
     
   	$view = View::make('payment.create');
@@ -76,7 +78,7 @@ class PaymentController extends \BaseController {
   			
   			 $rules = array(
   			 'Payee'=>'required',
-  			 'bank'=>'required|alpha_dash|between:1,999',
+  			 'bank_info'=>'required|alpha_dash|between:1,999',
   			 'total_amount'=>'required|numeric|between:0,99999999',
   			 'vat'=>'numeric',
   			 'attachement'=>'max:2048',
@@ -164,6 +166,7 @@ class PaymentController extends \BaseController {
   				if(!$payment){
   					throw new \Exception('数据提交没有成功！');
   				}
+  				$pid=$payment->id;
   				if(Input::hasFile('attachement')){//附件上传
   					$upload_files=Input::file('attachement');
   					$i=1;
@@ -171,7 +174,7 @@ class PaymentController extends \BaseController {
   					
   						$attachement = new Attachement;
   						$attachement->voucher = $upload;
-  						$attachement->parent_id = $payment->id;
+  						$attachement->parent_id = $pid;
   						$attachement->serial_number=$i;
   						$attachement->save();
   						$i++;
@@ -196,14 +199,15 @@ class PaymentController extends \BaseController {
   						
   					if(!$allocation){
   					
+        				
         				throw new \Exception('数据提交没有成功！');
         			}	
     			}	
-  				
+  			echo self::findApprovers($pid);	
   			
   			});
   			
-  			return Redirect::route('Nav.nav');
+  			//return Redirect::route('Nav.nav');
   								
   	}
   }
@@ -231,6 +235,60 @@ class PaymentController extends \BaseController {
 	
 		return View::make('payment.start');
 	}
+	
+	private function findApprovers($pmtid){
+	
+		$pmt = Payment::find($pmtid);
+		$applicant_id = $pmt->created_by_user;
+		
+		$arr_cctrs = $pmt->cctrs;
+		$arr_accounts = $pmt->accounts;
+	
+		foreach($arr_cctrs as $cctr){
+		
+			//$cctr_amounts = array_add($cctr_amounts,
+			//$cctr->id,
+			$cctr_amount = Allocation::where('cctr_id','=',$cctr->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
+			
+			$cctr_query = DB::table('controls')->where('control_id','=',$cctr->id)
+			->where('approval_start','<',$cctr_amount)
+			->where('approval_limit','>=',$cctr_amount)
+			->where('authority_user','<>',$applicant_id)
+			->where('control_type_id','=',1)->distinct();
+			$cctr_approvers = DB::table('controls')->where('control_id','=',$cctr->id)
+			->where('mandatory','=',1)
+			->where('authority_user','<>',$applicant_id)
+			->where('control_type_id','=',1)->union($cctr_query)
+			->orderBy('approval_level');
+			$approvers_1 = $cctr_approvers->distinct()->lists('Authority_user');
+			
+			
+			
+			
+		}
+		
+		foreach($arr_accounts as $account){
+			
+			$acct_amount = Allocation::where('account_id','=',$account->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
+			
+			$acct_query = DB::table('controls')->where('control_id','=',$account->id)
+			->where('approval_start','<',$acct_amount)
+			->where('approval_limit','>=',$acct_amount)
+			->where('authority_user','<>',$applicant_id)
+			->where('control_type_id','=',2)->distinct();
+			$acct_approvers = DB::table('controls')->where('control_id','=',$account->id)
+			->where('mandatory','=',1)
+			->where('authority_user','<>',$applicant_id)
+			->where('control_type_id','=',2)->union($acct_query)
+			->orderBy('approval_level');
+			$approvers_2 = $acct_approvers->distinct()->lists('Authority_user');
+			
+		}
+		
+		return array_merge($approvers_1, $approvers_2);
+	}
+	
+	
 	public function missingMethod($parameters = array()){
     //
 	}

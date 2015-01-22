@@ -69,13 +69,13 @@ catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
   	
   		if($user){
   		
-  			$profile = $user->profile();
+  			$profile = $user->profile;
   			if($profile){
   				$cctr_id=$profile->cctr_id;
   				$approver_id = $profile->approver_id;
   				
   			}
-  		return Redirect::route('register')->with('cctr_id',$cctr_id)->with('approver_id',$approver_id);
+  		return Redirect::route('register')->with('cctr_id',$cctr_id)->with('approver_id',$approver_id)->withInput();
   		}
   	}	
   	
@@ -84,7 +84,10 @@ catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
   	
   		if($user){
   		
-  			$profile = User_profile::where('user_id','=',$id)->firstOrFail();
+  			//$profile = User_profile::where('user_id','=',$id)->first();
+  			
+  			$profile = $user->profile;
+			
   			if(!$profile){
   				$profile = new User_profile;
   				$profile->user_id = $id;
@@ -101,7 +104,7 @@ catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
   		$profile->approver_id = intval(Input::get('approver_id'));
   		$profile->save();
   		
-  		
+  		return Redirect::route('register')->withInput();
   	}
   }
   

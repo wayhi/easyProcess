@@ -83,7 +83,7 @@ class ApprovalController extends \BaseController {
   			
   			 $rules = array(
   			 'approval_limit'=>'required|numeric',
-  			 
+  			 'approval_start'=>'required|numeric',
   			 );
 			//验证字段
     		$validator = Validator::make(Input::all(), $rules);
@@ -109,8 +109,10 @@ class ApprovalController extends \BaseController {
     		
     		$control->control_id = $control_id;
     		$control->authority_user = intval(Input::get('authority_user'));
+    		$control->approval_start = floatval(Input::get('approval_start'));
     		$control->approval_limit = floatval(Input::get('approval_limit'));
     		$control->approval_level = intval(Input::get('approval_level'));
+    		
     		if(Input::has('mandatory')){
   				
   				$control->mandatory = 1;

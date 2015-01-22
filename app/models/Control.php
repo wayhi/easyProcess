@@ -11,18 +11,17 @@ class Control extends \Eloquent {
 	
 	}
 	
-	
-	
 	public function user(){
 	
 		return $this->belongsTo('User','authority_user','id');
 	
 	}
 	
+	 public function scopeOfType($query, $type){
+	 
+        return $query->whereType($type);
+    }
 	
-	public function findApprover($pmt){
-	
-	}
 	
 	
 }
