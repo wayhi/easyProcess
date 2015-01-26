@@ -5,7 +5,7 @@ namespace App\Controllers\payment;
 
 
 use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Debugbar;
-use Auth, BaseController, Form, Input, Redirect, Sentry, View, Validator, DB;
+use Auth, BaseController, Form, Input, Redirect, Sentry, View, Validator, DB, Payment_approval;
 
 class PaymentController extends \BaseController {
 	
@@ -129,9 +129,9 @@ class PaymentController extends \BaseController {
   				
   			//	提交数据
   			
-  			//$is_downpayment=-1;
+  			$payment = new Payment();
   			
-  			DB::transaction(function(){
+  			$pmt = DB::transaction(function(){
   				if(Input::has('is_downpayment')){ //判断是否预付款
   				
   					$pmt_type=-1;
@@ -166,8 +166,11 @@ class PaymentController extends \BaseController {
   				if(!$payment){
   					throw new \Exception('数据提交没有成功！');
   				}
+  				
   				$pid=$payment->id;
-  				if(Input::hasFile('attachement')){//附件上传
+  				
+  				if(Input::hasFile('attachement')){ 
+  					//附件上传
   					$upload_files=Input::file('attachement');
   					$i=1;
   					foreach($upload_files as $upload){
@@ -186,7 +189,7 @@ class PaymentController extends \BaseController {
   				}	
   				
   				
-  				for($i=1;$i<=$row_count;$i++){
+  				for ($i=1;$i<=$row_count;$i++){
   					
   					$allocation = Allocation::create([
   						'pmt_id' => $payment->id,
@@ -199,17 +202,32 @@ class PaymentController extends \BaseController {
   						
   					if(!$allocation){
   					
-        				
         				throw new \Exception('数据提交没有成功！');
+        				
         			}	
     			}	
-    		//	$t = self::findApprovers($pid);
-    		//	Debugbar::info($t);
-  			//echo $t[1];	
+    			
+    			$approvers = self::findApprovers($pid);
+    			//Debugbar::info($pid);
+    			//Debugbar::info($approvers);
+    			//echo $approvers;
+  				$n=1;
+  				foreach($approvers as $approver){
+  				
+  					$pmtapprovals = new Payment_approval;
+  					$pmtapprovals->pmt_id = $pid;
+  					$pmtapprovals->approver_id = $approver;
+  					$pmtapprovals->serial_no = $n;
+  					$n++;
+  					$pmtapprovals->status = 1;
+  					$pmtapprovals->save();
+  			
+  				}
+  			return $payment;	
   			
   			});
   			
-  			//return Redirect::route('Nav.nav');
+  			return \View::make('payment.summary')->with('payment',$pmt);
   								
   	}
   }
@@ -238,66 +256,52 @@ class PaymentController extends \BaseController {
 		return View::make('payment.start');
 	}
 	
-	private function findApprovers($pmtid){
+	public static function findApprovers($pmtid){
 	
 		$pmt = Payment::find($pmtid);
 		$applicant_id = $pmt->created_by_user;
-		
+		$approvers_list=[];
 		$arr_cctrs = $pmt->cctrs;
 		$arr_accounts = $pmt->accounts;
-	
+		$i=0;
 		foreach($arr_cctrs as $cctr){
-		
-			//$cctr_amounts = array_add($cctr_amounts,
-			//$cctr->id,
+		// get CCTR approvers who meets the approval limit or flaged "Mandatory"
 			$cctr_amount = Allocation::where('cctr_id','=',$cctr->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
-			/*-------------------
-			$cctr_query = DB::table('controls')->where('control_id','=',$cctr->id)
-			->where('approval_start','<',$cctr_amount)
-			->where('approval_limit','>=',$cctr_amount)
-			->where('authority_user','<>',$applicant_id)
-			->where('control_type_id','=',1)->distinct();
-			$cctr_approvers = DB::table('controls')->where('control_id','=',$cctr->id)
-			->where('mandatory','=',1)
-			->where('authority_user','<>',$applicant_id)
-			->where('control_type_id','=',1)->union($cctr_query)
-			->orderBy('approval_level');
-			$approvers_1 = $cctr_approvers->distinct()->lists('Authority_user');
-			---------------------*/
 			
 			$approvers_1 = DB::table('controls')
 			->select('Authority_user')
-			->where(DB::raw('(activated=1 and control_id ='.$cctr->id.' and control_type_id=1 and authority_user<>'.$applicant_id.
-			') and ((approval_start<'.$cctr_amount.' and approval_limit>='.$cctr_amount.') or (mandatory=1))'))
+			->whereRaw('(activated=1 and control_id ='.$cctr->id.' and control_type_id=1 and authority_user<>'.$applicant_id.
+			') and ((approval_start<'.$cctr_amount.' and approval_limit>='.$cctr_amount.') or (mandatory=1))')
 			->orderBy('approval_level')->distinct()->lists('Authority_user');
 			
+			foreach($approvers_1 as $approver){
+				
+				$approvers_list = array_add($approvers_list,$i,$approver);
+				$i++;
+			
+			}
 			
 		}
 		
 		foreach($arr_accounts as $account){
-			
+			// get accounts approvers who meets the approval limit or flaged "Mandatory"
 			$acct_amount = Allocation::where('acct_id','=',$account->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
-			/*-----------------------------------------------------
-			$acct_query = DB::table('controls')->where('control_id','=',$account->id)
-			->where('approval_start','<',$acct_amount)
-			->where('approval_limit','>=',$acct_amount)
-			->where('authority_user','<>',$applicant_id)
-			->where('control_type_id','=',2)->distinct();
-			$acct_approvers = DB::table('controls')->where('control_id','=',$account->id)
-			->where('mandatory','=',1)
-			->where('authority_user','<>',$applicant_id)
-			->where('control_type_id','=',2)->union($acct_query)
-			->orderBy('approval_level');
-			$approvers_2 = $acct_approvers->distinct()->lists('Authority_user');
-			----------------------------------------------------------*/
 			$approvers_2 = DB::table('controls')
-			->select('Authority_user')->where(DB::raw('(activated=1 and control_id ='.$account->id.' and control_type_id=2 and authority_user<>'.$applicant_id.
-			') and ((approval_start<'.$acct_amount.' and approval_limit>='.$acct_amount.') or (mandatory=1))'))
+			->select('Authority_user')->whereRaw('(activated=1 and control_id ='.$account->id.' and control_type_id=2 and authority_user<>'.$applicant_id.
+			') and ((approval_start<'.$acct_amount.' and approval_limit>='.$acct_amount.') or (mandatory=1))')
 			->orderBy('approval_level')->distinct()->lists('Authority_user');
+			
+			foreach($approvers_2 as $approver){
+				
+				$approvers_list = array_add($approvers_list,$i,$approver);
+				$i++;
+			
+			}
+			
 			
 		}
 		
-		return array_merge($approvers_1, $approvers_2);
+		return array_unique($approvers_list);
 	}
 	
 	

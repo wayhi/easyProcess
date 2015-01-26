@@ -9,7 +9,11 @@ class Vendor extends \Eloquent {
 		return $this->hasMany('Bank','vendor_id','id');
 	}
 	
+	public function payments(){
 	
+		return $this->hasMany('Payment','payee_id','id');
+	
+	}
 	
 	
 	
