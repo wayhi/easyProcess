@@ -145,9 +145,12 @@ class PaymentController extends \BaseController {
   					
   				
   				
-  				
+  				$vendor_name = Input::get('Payee');
+  				$vendor_id = DB::table('vendors')->where('vendor_name',$vendor_name)->pluck('id');
   				$payment = Payment::create(array(
-  					'payee_id' => 1,
+  					'payee_id' => $vendor_id,
+  					'vendor_name'=>$vendor_name,
+  					'bank_info'=>Input::get('bank_info'),
   					'payer_id' => 1,
   					'amount' => floatval(Input::get('total_amount')),
   					'created_by_user' => Sentry::getUser()->id, 
@@ -233,7 +236,9 @@ class PaymentController extends \BaseController {
   }
  
 	public function index(){
-	
+		$uid = Sentry::getuser()->id;
+		$payments = Payment::where('created_by_user','=',$uid)->orderby('created_at','desc')->paginate(15);
+		return \View::make('payment.index')->with('payments',$payments);
 	
 	}
 	

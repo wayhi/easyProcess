@@ -60,9 +60,9 @@
 	<caption>需要以下人员审批：</caption>
 		<thead>
 			<tr>
-				<td></td>
-				<td>审批人</td>
-				<td>状态</td>
+				<th></th>
+				<th>审批人</th>
+				<th>状态</th>
 			</tr>
 		</thead>	
 			
