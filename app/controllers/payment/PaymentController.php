@@ -5,7 +5,7 @@ namespace App\Controllers\payment;
 
 
 use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Debugbar;
-use Auth, BaseController, Form, Input, Redirect, Sentry, View, Validator, DB, Payment_approval;
+use Input, Redirect, Sentry, View, Validator, DB, Crypt, Payment_approval;
 
 class PaymentController extends \BaseController {
 	
@@ -163,6 +163,7 @@ class PaymentController extends \BaseController {
   					'pmt_due_date' => Input::get('due_date'),
   					'urgency' => 0,
   					'description' => Input::get('description'),
+  					'memo'=> Input::get('memo'),
   					'attachement' => '',
   					));
   					
@@ -220,12 +221,18 @@ class PaymentController extends \BaseController {
   					$pmtapprovals = new Payment_approval;
   					$pmtapprovals->pmt_id = $pid;
   					$pmtapprovals->approver_id = $approver;
+  					if($n===1){
+  						$payment->reviewer_id = $approver;
+  						$payment->save();
+  					}
   					$pmtapprovals->serial_no = $n;
   					$n++;
   					$pmtapprovals->status = 1;
   					$pmtapprovals->save();
   			
   				}
+  				
+  				
   			return $payment;	
   			
   			});
@@ -237,13 +244,26 @@ class PaymentController extends \BaseController {
  
 	public function index(){
 		$uid = Sentry::getuser()->id;
-		$payments = Payment::where('created_by_user','=',$uid)->orderby('created_at','desc')->paginate(15);
+		$payments = Payment::with('approvals')->where('created_by_user','=',$uid)->orderby('created_at','desc')->paginate(10);
 		return \View::make('payment.index')->with('payments',$payments);
 	
 	}
 	
 	public function show($id) {
 	
+		$uid=Crypt::decrypt($id);
+		$payment = Payment::with('allocations','attachements','approvals')->find($uid);
+		$acct_options = V_account::getList();//费用科目列表
+  		$cctr_options=V_cctr::getList();//成本中心列表
+  		$attachement_list=[];
+  		$i=0;
+		foreach($payment->attachements as $attachement){
+			$attachement_list = array_add($attachement_list,$i,[$attachement->voucher->originalFilename(),
+			$attachement->voucher->url()]);
+			$i++;
+		}
+		return \View::make('payment.show')->with('payment',$payment)->with('attachement_list',$attachement_list)
+		->with('cctr_options', $cctr_options)->with('acct_options',$acct_options);
 	
 	}  
 	
@@ -305,7 +325,11 @@ class PaymentController extends \BaseController {
 			
 			
 		}
-		
+		//Debugbar::info($approvers_list);
+		if(($approvers_list)==[]){
+			$approver = DB::table('user_profiles')->where('user_id',$applicant_id)->pluck('approver_id');
+			$approvers_list = array_add($approvers_list,$i,$approver);
+		}
 		return array_unique($approvers_list);
 	}
 	

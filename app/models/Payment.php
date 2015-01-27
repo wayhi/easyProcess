@@ -31,7 +31,7 @@ class Payment extends \Eloquent {
 	
 	public function approvals(){
 	
-		return $this->hasMany('Payment_approval','pmt_id','id');
+		return $this->hasMany('Payment_approval','pmt_id','id')->orderby('pmt_approvals.serial_no');
 	}
 	
 	public function payee(){
@@ -41,6 +41,6 @@ class Payment extends \Eloquent {
 	
 	public function approvers(){
 	
-		return $this->belongsToMany('User','pmt_approvals','pmt_id','approver_id');
+		return $this->belongsToMany('User','pmt_approvals','pmt_id','approver_id')->orderby('pmt_approvals.serial_no');
 	}
 }
