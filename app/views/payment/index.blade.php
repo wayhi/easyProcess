@@ -41,11 +41,22 @@
                     
                     
                     <td>
-                    
-                    	@if($payment->approvals[0]->status==1)
-                        <a href="" class="btn btn-warning btn-mini pull-left">召回Recall</a>
+                    	@if($payment->status==1)
+							@if($payment->approvals[0]->status==1)
+							 {{ Form::open(array('route' => array('payment.destroy', Crypt::encrypt($payment->id)), 
+							 'method' => 'delete', 
+							 'data-confirm' => 'Are you sure?')) }}
+							 <button name='recall' type="submit"  class="btn-warning btn-small pull-left">撤回</button>
+							{{Form::close()}}
+							@endif
+						@elseif($payment->status<=0)
+							{{ Form::open(array('route' => array('payment.edit', Crypt::encrypt($payment->id)), 
+							 'method' => 'get', 
+							 'data-confirm' => 'Are you sure?')) }}
+							 <button name='edit' type='submit' class="btn-success btn-small pull-left">编辑</button>
+							{{Form::close()}}
                         @endif
-                       
+                       	
                     </td>
                     
                 </tr>

@@ -45,6 +45,6 @@ class LoginController extends \BaseController {
   {
     Sentry::logout();
 
-    return View::make('Login.login');
+    return redirect::route('login');
   }
 }

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script>
 		$(function(){ 
-    		$("#Payee").autocomplete({ 
+    		$("#vendor_name").autocomplete({ 
     			delay:500,
         		source: "../vendorsearch", 
         		minLength: 2,
@@ -38,7 +38,7 @@
 				<div class="span6">				
             		
             			
-            			{{ Former::text('Payee')->class('span5')->label('供应商名称：')->placeholder('输入名称关键字或供应商编号查询') }}
+            			{{ Former::text('vendor_name')->class('span5')->label('供应商名称：')->placeholder('输入名称关键字或供应商编号查询') }}
 					
 				</div>
 					

@@ -1,10 +1,14 @@
 <?php
 
 class Payment extends \Eloquent {
+
+	use SoftDeletingTrait;
 	protected $table='payments';
-	//protected $fillable = ['*'];
+	//protected $fillable = [''];
 	protected $guarded = array('id');
 	
+
+    protected $dates = ['deleted_at'];
 	
 	public function allocations(){
 	

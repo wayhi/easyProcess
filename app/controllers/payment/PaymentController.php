@@ -32,18 +32,26 @@ class PaymentController extends \BaseController {
   
   }
   
-  	public function edit(){
+  	public function edit($id){
     
-    $view = View::make('payment.create');
-  	
-  	
-  	$acct_options=V_account::getList();//费用科目列表
-  	$cctr_options=V_cctr::getList();//成本中心列表
-  	
-  	//View::composer('payment.create',);
-  		$view->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)->with('row_count',5);
-  	return $view;
-  
+    	$uid = Crypt::decrypt($id);
+   		$payment = Payment::with('allocations')->find($uid);
+   		
+   		if(Sentry::getUser()->id <> $payment->created_by_user){
+   		
+   			Return Redirect::route('login');
+   		
+   		}else{
+			$view = View::make('payment.edit');
+	
+			$acct_options=V_account::getList();//费用科目列表
+			$cctr_options=V_cctr::getList();//成本中心列表
+	
+			$row_count = count($payment->allocations);
+			$view->with('cctr_options', $cctr_options)->with('row_count',$row_count)
+			->with('acct_options',$acct_options)->with('payment',$payment);
+			return $view;
+		}
     
   }
   
@@ -77,9 +85,9 @@ class PaymentController extends \BaseController {
   			//定义规则
   			
   			 $rules = array(
-  			 'Payee'=>'required',
+  			 'vendor_name'=>'required',
   			 'bank_info'=>'required|alpha_dash|between:1,999',
-  			 'total_amount'=>'required|numeric|between:0,99999999',
+  			 'amount'=>'required|numeric|between:0,99999999',
   			 'vat'=>'numeric',
   			 'attachement'=>'max:2048',
   			 
@@ -112,13 +120,10 @@ class PaymentController extends \BaseController {
     		}
     		
   			//验证总金额和分摊表累计金额
-  			//if(floatval(Input::get('total_amount'))<>$amount_allocated){
-  				//抛出异常
-  				
-  			//}
+  			
   			$validator = Validator::make(
-    				array('total_amount'=>Input::get('total_amount')),
-    				array('total_amount'=>'in:'.$amount_allocated)
+    				array('amount'=>Input::get('amount')),
+    				array('amount'=>'in:'.$amount_allocated)
     			);
     		if($validator->fails()) {
   				
@@ -145,22 +150,22 @@ class PaymentController extends \BaseController {
   					
   				
   				
-  				$vendor_name = Input::get('Payee');
+  				$vendor_name = Input::get('vendor_name');
   				$vendor_id = DB::table('vendors')->where('vendor_name',$vendor_name)->pluck('id');
   				$payment = Payment::create(array(
   					'payee_id' => $vendor_id,
   					'vendor_name'=>$vendor_name,
   					'bank_info'=>Input::get('bank_info'),
   					'payer_id' => 1,
-  					'amount' => floatval(Input::get('total_amount')),
+  					'amount' => floatval(Input::get('amount')),
   					'created_by_user' => Sentry::getUser()->id, 
   					'currency' => 1,
-  					'vat_amount' => floatval(Input::get('vat')),
+  					'vat_amount' => floatval(Input::get('vat_amount')),
   					'type' => $pmt_type,
   					'invoice_code' => Input::get('invoice_code'),
   					'status' => 1,
   					'order_number' => Input::get('order_number'),
-  					'pmt_due_date' => Input::get('due_date'),
+  					'pmt_due_date' => Input::get('pmt_due_date'),
   					'urgency' => 0,
   					'description' => Input::get('description'),
   					'memo'=> Input::get('memo'),
@@ -273,6 +278,13 @@ class PaymentController extends \BaseController {
 	
 	public function destroy($id) {
 	
+		$uid=Crypt::decrypt($id);
+		$payment = Payment::find($uid);
+		
+		$payment->status = 0;
+		$payment->save();
+		
+		return Redirect::route('payment.index');
 	
 	}
 	
