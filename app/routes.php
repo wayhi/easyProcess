@@ -53,7 +53,7 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::post('payment/create',array('as'=>'payment.create','uses' => 'App\Controllers\payment\PaymentController@create'));		
 	Route::Resource('payment', 'App\Controllers\payment\PaymentController');
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
-
+	Route::Resource('approval','App\Controllers\approval\ApproveController');
 });
 
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));

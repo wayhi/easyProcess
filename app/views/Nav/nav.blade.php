@@ -48,7 +48,7 @@
 						<i class="fa fa-pencil"></i>
 						
 					</span>
-					<h4><a href="{{ URL::route('vendor.create') }}">供应商申请</a></h4>
+					<h4><a href="{{ URL::route('approval.index') }}">等待审批</a></h4>
 					<p>
 						Editing is as simple as typing on the page.
 						Your design is left intact and all changes are

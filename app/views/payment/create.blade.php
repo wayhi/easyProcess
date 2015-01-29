@@ -16,13 +16,13 @@
 	
     {{ Former::secure_open()->id('PaymentForm')->route('payment.store')->Method('POST')->class('form-inline')
     	->enctype('multipart/form-data')
-    	->rules(array('Payee'=>'required',
+    	->rules(array('vendor_name'=>'required',
     				'bank_info'=>'required',
-    				'total_amount'=>'required|match:/[0-9.]+/',
-    				'vat'=>'match:/[0-9.]+/',
+    				'amount'=>'required|match:/[0-9.]+/',
+    				'vat_amount'=>'match:/[0-9.]+/',
     				'invoice_code'=>'match:/[a-zA-z0-9-_]+/',
-    				'order_code'=>'match:/[a-zA-z0-9-_]+/',
-    				'due_date'=>'after:2015-01-01',
+    				'order_number'=>'match:/[a-zA-z0-9-_]+/',
+    				'pmt_due_date'=>'after:2015-01-01',
     				'description'=>'required'
     				))
     
@@ -34,7 +34,7 @@
 				<div class="span6">				
             		
             			
-            			{{ Former::text('vendor_name')->class('span5')->id('Payee')->label('收款方：')->placeholder('收款方开户名称') }}
+            			{{ Former::text('vendor_name')->class('span5')->id('vendor_name')->label('收款方：')->placeholder('收款方开户名称') }}
 					
 				</div>
 					
@@ -47,7 +47,7 @@
 			
 			<div class="row">
 				<div class="span6">
-				{{ Former::text('amount')->class('span3')->id('total_amount')->label('总金额：')->prepend('￥') }}
+				{{ Former::text('amount')->class('span3')->id('amount')->label('总金额：')->prepend('￥') }}
 				</div>
 				<div class="span6">
 					{{ Former::text('vat_amount')->class('span3')->id('vat_amount')->label('含增值税：')->prepend('￥') }}

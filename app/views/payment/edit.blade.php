@@ -13,20 +13,10 @@
             </div>
     @endif--!>
 
-	
-    {{ Former::secure_open()->id('PaymentForm')->route('payment.store')->Method('POST')->class('form-inline')
+	{{ Former::secure_open()->id('PaymentForm')->route('payment.update',Crypt::encrypt($payment->id))->Method('put')->class('form-inline')
     	->enctype('multipart/form-data')
-    	->rules(array('vendor_name'=>'required',
-    				'bank_info'=>'required',
-    				'amount'=>'required|match:/[0-9.]+/',
-    				'vat'=>'match:/[0-9.]+/',
-    				'invoice_code'=>'match:/[a-zA-z0-9-_]+/',
-    				'order_code'=>'match:/[a-zA-z0-9-_]+/',
-    				'pmt_due_date'=>'after:2015-01-01',
-    				'description'=>'required'
-    				))
+    	}}
     
-     }}
    {{Former::populate($payment)}}
     <div class="container">
 			
@@ -154,16 +144,21 @@
 		<div class="row"></div>
 
 
-<div class="form-actions">
 
-            {{ Former::submit('提交')->class('btn btn-success btn-save')->name('submit') }}
-            <a href="{{ URL::route('payment.index') }}" class="btn">取消</a>
-        </div>
+	<div class='form-actions'>
+			{{Former::submit('提交')->class('btn btn-success btn-save')->name('submit')}}
+            
+			{{Former::submit('删除')->class('btn btn-danger')->name('delete')}}
+
+            
+            <a href="{{ URL::route('payment.index') }}" class="btn">返回</a>
+            
+      </div>  
+	
+
 
 </div>
-
-
-
-    {{ Former::close() }}
+{{Former::close()}}
+    
 
 @stop
