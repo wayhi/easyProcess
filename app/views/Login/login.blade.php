@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  
+  <!--section class="dark"-->
   <div class="container">
   
   <div class="jumbotron">
@@ -75,5 +75,6 @@
         <p>&copy; easyProcess.cn 2014</p>
       </div>
 </div>
+
 </body>
 </html>

@@ -13,6 +13,7 @@
                 <th>收款方 <br> Paid-to</th>
                 <th>金额 <br> Total Amount</th>
                 <th>类型 <br> Requisition Type</th>
+                
                 <th>提交时间 <br> Created</th>
                 <th>状态 <br> Status</th>
                 <th><i class="icon-cog"></i></th>
@@ -30,7 +31,9 @@
                     <td>{{$payment->amount}}</td>
                     <td>@if($payment->type==1)第三方付款
                     @elseif($payment->type==2)个人报销
+                    @elseif($payment->type==-1)预付款
                     @else其他@endif</td>
+                    
                     <td>{{$payment->updated_at }}</td>
                     <td>@if($payment->status==0)保存中Ready
                     @elseif($payment->status==1)等待审批Pending

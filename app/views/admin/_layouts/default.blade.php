@@ -25,5 +25,11 @@
   @yield('main')
 
 </div>
+
+<script src="{{ URL::asset('js/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/local.js') }}"></script>
+
 </body>
 </html>

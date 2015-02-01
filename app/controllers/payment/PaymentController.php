@@ -523,6 +523,11 @@ class PaymentController extends \BaseController {
 			
 		}
 		
+		if(($approvers_list)==[]){
+			$approver = DB::table('user_profiles')->where('user_id',$applicant_id)->pluck('approver_id');
+			$approvers_list = array_add($approvers_list,$i,$approver);
+		}
+		
 		foreach($arr_accounts as $account){
 			// get accounts approvers who meets the approval limit or flaged "Mandatory"
 			$acct_amount = Allocation::where('acct_id','=',$account->id)->where('pmt_id','=',$pmtid)->sum('amount_final');
@@ -541,10 +546,7 @@ class PaymentController extends \BaseController {
 			
 		}
 		//Debugbar::info($approvers_list);
-		if(($approvers_list)==[]){
-			$approver = DB::table('user_profiles')->where('user_id',$applicant_id)->pluck('approver_id');
-			$approvers_list = array_add($approvers_list,$i,$approver);
-		}
+		
 		return array_unique($approvers_list);
 	}
 	

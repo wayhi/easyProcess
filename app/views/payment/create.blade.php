@@ -2,8 +2,8 @@
  
 @section('main')
  
-    
-    
+    <h2 align='center'>付款申请单</h2>
+    <hr>
 
     {{ Notification::showAll() }}
      

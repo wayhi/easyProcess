@@ -1,25 +1,24 @@
-<!doctype html>
+<!--doctype html>
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>easyProcess</title>
+  <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+  <title>easyProcess</title-->
 
-  @include('admin._partials.assets')
+@extends('admin._layouts.default')
+ 
+@section('main')
 
-
-<link rel="stylesheet" href="{{ URL::asset('css/screen.css') }}">
-</head>
-<body>
-
-   {{Notification::showAll()}}
-   <section class="dark">
+<!--link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}"-->
+<!--/head-->
+<!--body -->
+   <section class="light">
 		<div class="container">
 			
-			<div class="row text-center">
-				<div class="col-sm-6">
-					<span class="circle circle-lg circle-blue">
-						<i class="fa fa-exchange fa-rotate-90"></i>
+			<div class="row text-center ">
+				<div class="span4">
+					<span class="circle circle-lg circle-green">
+						<i class="fa fa-edit"></i>
 					</span>
 
 					<h4><a href="{{ URL::route('payment.start') }}">付款申请</a>
@@ -27,48 +26,70 @@
 					
 					</h4>
 					<p>
-						Nothing to download or install. Surreal does
-						everything over FTP, SFTP, or Amazon&nbsp;S3.
+						
 					</p>
 				</div>
-				<div class="col-sm-6">
+				<div class="span4">
 					<span class="circle circle-lg circle-green">
 						<i class="fa fa-file-text-o"></i>
 					</span>
 					<h4>个人报销</h4>
 					<p>
-						Select which parts of the page clients can edit.
-						Integrate without touching any code!
-					</p>
-				</div>
-				</div>
-				<div class="row text-center">
-				<div class="col-sm-6">
-					<span class="circle circle-lg circle-orange">
-						<i class="fa fa-pencil"></i>
 						
-					</span>
-					<h4><a href="{{ URL::route('approval.index') }}">等待审批</a></h4>
-					<p>
-						Editing is as simple as typing on the page.
-						Your design is left intact and all changes are
-						tracked.
 					</p>
 				</div>
 				
-				<div class="col-sm-6">
+				<div class="span4">
 					<span class="circle circle-lg circle-orange">
-						<i class="fa fa-pencil"></i>
+						<i class="fa fa-list"></i>
 					</span>
 					<h4><a href="{{URL::route('payment.index')}}">申请列表</a></h4>
 					<p>
-						Editing is as simple as typing on the page.
-						Your design is left intact and all changes are
-						tracked.
+						
+					</p>
+				</div>
+				
+				</div>
+			<div class="row text-center">
+				<div class="span4">
+					<span class="circle circle-lg circle-orange">
+						<i class="fa fa-check"></i>
+						
+					</span>
+					<h4><a href="{{ URL::route('approval.index') }}">等待审批</a>
+					
+					
+					<span class="badge badge-important">{{$count or ''}}</span>
+					 
+					
+					</h4>
+					<p>
+						
+					</p>
+				</div>
+				
+				<div class="span4">
+					<span class="circle circle-lg ">
+						<i class="fa fa-user"></i>
+					</span>
+					<h4><a href="{{URL::route('register')}}">用户设置</a></h4>
+					<p>
+						
+					</p>
+				</div>
+				
+				<div class="span4">
+					<span class="circle circle-lg">
+						<i class="fa fa-wrench"></i>
+					</span>
+					<h4><a href="{{URL::route('admin.approval.create')}}">系统管理</a></h4>
+					<p>
+						
 					</p>
 				</div>
 				
 			</div>
+			
 
 		</div>
 	</section>
@@ -84,5 +105,6 @@
         <p>&copy; easyProcess.cn 2014</p>
     </div>
 </div>
-</body>
-</html>
+
+
+@stop

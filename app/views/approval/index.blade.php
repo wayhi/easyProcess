@@ -2,35 +2,41 @@
 
 @section('main')
 
-    {{ Notification::showAll() }}
-
-    
+{{ Notification::showAll() }}
+{{Former::secure_open()->id('PaymentApprovalList')->route('approval.store')->Method('post')->class('form-inline')}}
+{{Former::submit('批准')->class('btn-success btn-small')->name('approve')}}   
+{{Former::submit('驳回')->class('btn-danger btn-small')->name('reject')}} 
+ 
+<hr>
 <div class='container'>
     <table class="table">
         <thead>
             <tr>
-                <th>#</th>
+                <th>{{Former::checkbox('pmt_chk_all','')}}</th>
                 <th>收款方 <br> Paid-to</th>
                 <th>金额 <br> Total Amount</th>
                 <th>类型 <br> Requisition Type</th>
+                <th>申请人<br>Applicant</th>
                 <th>提交时间 <br> Created</th>
                 <th>状态 <br> Status</th>
-                <th><i class="icon-cog"></i></th>
+                
             </tr>
         </thead>
         <tbody>
             @foreach ($payments as $payment)
-                <tr @if($payment->status==1 or $payment->status==0 ) class='warning'
-                @elseif($payment->status==2) class='success'
-                @elseif($payment->status==3) class='info'
-                @elseif($payment->status==-1) class='error'
-                 @endif>
-                    <td>{{$payment->id }}</td>
-                    <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}">{{$payment->vendor_name }}</a> </td>
+            	 @if($payment->status==1 or $payment->status==0 ) <tr class='warning'>
+                @elseif($payment->status==2) <tr class='success'>
+                @elseif($payment->status==3) <tr class='info'>
+                @elseif($payment->status==-1) <tr class='error'>
+                 @endif
+                    <td><input type='checkbox' name='pmt_chk[]' value='{{Crypt::encrypt($payment->id)}}'></td>
+                    <td><a href="{{URL::Route('approval.edit',Crypt::encrypt($payment->id))}}">{{$payment->vendor_name }}</a> </td>
                     <td>{{$payment->amount}}</td>
                     <td>@if($payment->type==1)第三方付款
                     @elseif($payment->type==2)个人报销
+                    @elseif($payment->type==-1)预付款
                     @else其他@endif</td>
+                    <td>{{$payment->creator->last_name}}</td>
                     <td>{{$payment->updated_at }}</td>
                     <td>@if($payment->status==0)保存中Ready
                     @elseif($payment->status==1)等待审批Pending
@@ -40,24 +46,6 @@
                     @endif</td>
                     
                     
-                    <td>
-                    	@if($payment->status==1)
-							@if($payment->approvals[0]->status==1)
-							 {{ Form::open(array('route' => array('payment.destroy', Crypt::encrypt($payment->id)), 
-							 'method' => 'delete', 
-							 'data-confirm' => 'Are you sure?')) }}
-							 <button name='recall' type="submit"  class="btn-warning btn-small pull-left" value='recall'>撤回</button>
-							{{Form::close()}}
-							@endif
-						@elseif($payment->status<=0)
-							{{ Form::open(array('route' => array('payment.edit', Crypt::encrypt($payment->id)), 
-							 'method' => 'get', 
-							 'data-confirm' => 'Are you sure?')) }}
-							 <button name='edit' type='submit' class="btn-success btn-small pull-left">编辑</button>
-							{{Form::close()}}
-                        @endif
-                       	
-                    </td>
                     
                 </tr>
             @endforeach
@@ -69,4 +57,5 @@
     
     <div class='pagination inline'>{{$payments->links();}}</div>
 </div>
+{{Former::close()}}
 @stop

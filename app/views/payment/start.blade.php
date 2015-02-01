@@ -2,27 +2,8 @@
  
 @section('main')
  
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script>
-		$(function(){ 
-    		$("#vendor_name").autocomplete({ 
-    			delay:500,
-        		source: "../vendorsearch", 
-        		minLength: 2,
-        		select: function(event,ui){
-        			
-        			$("#bank_info").autocomplete("search",ui.item.label);
-        		}      		
-    		}); 
-		}); 
-		
-		$(function(){
-			$("#bank_info").autocomplete({
-				source: "../banksearch",
-			});
-		});
-		
-	</script>  
+    <!--link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"-->
+ 
 
     {{ Notification::showAll() }}
      

@@ -38,6 +38,12 @@ class Payment extends \Eloquent {
 		return $this->hasMany('Payment_approval','pmt_id','id')->orderby('pmt_approvals.serial_no');
 	}
 	
+	public function creator(){
+	
+		return $this->belongsTo('User','created_by_user','id');
+		
+	}
+	
 	public function payee(){
 	
 		return $this->belongsTo('Vendor','payee_id','id');

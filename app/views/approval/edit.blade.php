@@ -2,12 +2,14 @@
  
 @section('main')
  
+    <!-- Modal -->
+
      <h2 align='center'>付款申请单</h2>
     <hr>
-    
 
     {{ Notification::showAll() }}
-     
+{{Former::secure_open()->id('PaymentApprovalForm')->route('approval.update',Crypt::encrypt($payment->id))->Method('put')->class('form-inline')}}
+
    
     <div class="container">
 			
@@ -115,7 +117,7 @@
 				</div>
 			<div class='span3'>
 			
-				<p class="text-info">付款事由-Purpose：</p>{{{$payment->description}}}
+				{{ '<p class="text-info">付款事由-Purpose：</p>'.$payment->description}}
 				
 			</div>
 			<div class='span3'>
@@ -170,8 +172,11 @@
 			<td>驳回 Rejected</td>
 			@endif
 			
-			
+			@if($payment->reviewer_id == $approval->approver_id)
+			<td>{{Former::textarea('comment',$approval->comment)->rows(3)->columns(10)}}</td>
+			@else
 			<td>{{{$approval->comment}}}</td>
+			@endif
 			</tr>
 			@endforeach
 		</tbody>
@@ -184,21 +189,50 @@
 			</div>
 				
 		</div>
+		
 		<div class="row">
-			<div class='span2'></div>
+			<div class='span2'>
+			</div>
+			
+			
 			<div class='span8'>
-
 				<div class="form-actions">
-            		<a href="{{ URL::route('payment.index') }}" class="btn btn-success">确定</a>
-        		</div>
-        		
+				
+            		{{Former::submit('批准')->class('btn-success btn-small')->name('approve')}}  
+            		<a href="#myModal"  data-toggle="modal" class="btn btn-primary btn-small">批准并抄送...</a>
+					{{Former::submit('驳回')->class('btn-danger btn-small')->name('reject')}} 
+					
+				</div>
+				
+					
         	</div>
-        <div>
-
+        	
+					
+			<!--  modal content start-->
+          	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">选择需要抄送的人员：</h3>
+            </div>
+            <div class="modal-body">
+              
+              {{ Former::select('approver_id[]')->multiple()->label('增加审批者：')->options(User::activated()->whereNotIn('id',$payment->approvers->lists('id'))
+              ->where('id','<>',$payment->created_by_user)->orderBy('last_name')->lists('last_name','id'))}} 
+              
+              
+			</div>
+            <div class="modal-footer">
+              <button class="btn" data-dismiss="modal">关闭</button>
+              
+              <input class="btn btn-success" type='submit' name='approve_forward' value='批准'>
+              
+            
+            </div>
+          </div>
+  			<!--Modal content end -->
+        	 </div>
+		
+		
 </div>
-
-
-
-
 
 @stop

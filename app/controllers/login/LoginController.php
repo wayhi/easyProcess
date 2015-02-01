@@ -2,7 +2,7 @@
 
 namespace app\controllers\login;
 
-use Auth, BaseController, Form, Input, Redirect, Sentry, View;
+use Auth, BaseController, Form, Input, Redirect, Sentry, View, Payment,Debugbar;
 
 class LoginController extends \BaseController {
 
@@ -25,10 +25,15 @@ class LoginController extends \BaseController {
     try
     {
       $user = Sentry::authenticate($credentials, false);
-
+	//Debugbar::info($user);
       if ($user)
       {
-        return Redirect::route('Nav.nav');
+        $waiting_for_approval = count(Payment::where('reviewer_id',$user->id)->lists('id'));
+        if($waiting_for_approval>0){
+        	return View::make('Nav.nav')->with('count',$waiting_for_approval);
+        }else{
+        	return View::make('Nav.nav');
+        }
       }
     }
     catch(\Exception $e)
