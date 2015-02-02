@@ -43,7 +43,7 @@
 			
 		<div class="form-actions">
 
-            {{ Former::submit('下一步')->class('btn btn-success btn-save')->name('submit') }}
+            {{ Former::submit('下一步')->class('btn btn-success')->name('submit') }}
             <a href="{{ URL::route('Nav.nav') }}" class="btn">返回</a>
             
 		</div>

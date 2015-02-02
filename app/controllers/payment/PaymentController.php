@@ -79,8 +79,8 @@ class PaymentController extends \BaseController {
   			if(Input::has('row_count')){
   				$row_count=intval(Input::get('row_count'));
   			}
-  			
-  			
+  			//Debugbar::info($request);
+  			//Debugbar::info( Input::get('related_pmt_id'));
   			
   			//定义规则
   			
@@ -134,7 +134,8 @@ class PaymentController extends \BaseController {
   				
   			//	提交数据
   			
-  			$payment = new Payment();
+  			//$payment = new Payment();
+  			
   			
   			$pmt = DB::transaction(function(){
   				if(Input::has('is_downpayment')){ //判断是否预付款
@@ -152,6 +153,10 @@ class PaymentController extends \BaseController {
   				
   				$vendor_name = Input::get('vendor_name');
   				$vendor_id = DB::table('vendors')->where('vendor_name',$vendor_name)->pluck('id');
+  				$related_pmt_id = 0;
+  				if(Input::has('related_pmt_id')){
+  					$related_pmt_id=intval(Crypt::decrypt(Input::get('related_pmt_id')));
+  				} 
   				$payment = Payment::create(array(
   					'payee_id' => $vendor_id,
   					'vendor_name'=>$vendor_name,
@@ -162,6 +167,7 @@ class PaymentController extends \BaseController {
   					'currency' => 1,
   					'vat_amount' => floatval(Input::get('vat_amount')),
   					'type' => $pmt_type,
+  					'related_pmt_id' => $related_pmt_id,
   					'invoice_code' => Input::get('invoice_code'),
   					'status' => 1,
   					'order_number' => Input::get('order_number'),
@@ -177,7 +183,17 @@ class PaymentController extends \BaseController {
   				}
   				
   				$pid=$payment->id;
+  				if($related_pmt_id<>0){//关联相关预付款
   				
+  					$related_pmt = Payment::find($related_pmt_id);
+  					if($related_pmt){
+  						
+  						$related_pmt->related_pmt_id = $pid;
+  						$related_pmt->save();
+  					
+  					}
+  				
+  				}
   				if(Input::hasFile('attachement')){ 
   					//附件上传
   					$upload_files=Input::file('attachement');
@@ -550,6 +566,13 @@ class PaymentController extends \BaseController {
 		return array_unique($approvers_list);
 	}
 	
+	public function downpayments(){
+	
+		$payments = Payment::downpayments()->where('related_pmt_id','=',0)->where('status','>',0)->orderby('created_at','desc')->paginate(10);
+		return \View::make('payment.downpayments')->with('payments',$payments);
+	
+	
+	}
 	
 	public function missingMethod($parameters = array()){
     //

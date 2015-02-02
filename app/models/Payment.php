@@ -53,4 +53,10 @@ class Payment extends \Eloquent {
 	
 		return $this->belongsToMany('User','pmt_approvals','pmt_id','approver_id')->orderby('pmt_approvals.serial_no');
 	}
+	
+	public function scopeDownpayments($query){
+		
+		return $query->where('type',-1);
+	
+	}
 }

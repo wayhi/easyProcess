@@ -64,7 +64,24 @@
 	</div>
 	<div class="span2">
 	
-	<button class="btn btn-small btn-info" type="button">关联预付款...</button>
+	<button data-target="#myModal" href="{{URL::route('payment.downpayments')}}" data-toggle="modal" class="btn btn-small btn-info" type="button">关联预付款...</button>
+	
+	<!--  modal content start-->
+          	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">选择需要关联的预付款：</h3>
+            </div>
+            <div class="modal-body">
+              </div>
+            <div class="modal-footer">
+              <button class="btn btn-success btn-small" data-dismiss="modal">确定</button>
+              
+              <!--input class="btn btn-success" type='submit' name='related_pmt_choose' value='确定'-->
+              
+            
+            </div>
+          </div>
 	
 	</div>
 </div>	

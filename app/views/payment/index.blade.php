@@ -34,7 +34,7 @@
                     @elseif($payment->type==-1)预付款
                     @else其他@endif</td>
                     
-                    <td>{{$payment->updated_at }}</td>
+                    <td>{{$payment->created_at }}</td>
                     <td>@if($payment->status==0)保存中Ready
                     @elseif($payment->status==1)等待审批Pending
                     @elseif($payment->status==2)已批准Approved
