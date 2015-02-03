@@ -34,7 +34,7 @@
 				<div class="span6">				
             		
             			
-            			{{ Former::text('vendor_name')->class('span5')->id('vendor_name')->label('收款方：')->placeholder('收款方开户名称') }}
+            {{ Former::text('vendor_name')->class('span5')->id('vendor_name')->label('收款方：')->placeholder('收款方开户名称') }}
 					
 				</div>
 					
@@ -64,7 +64,7 @@
 	</div>
 	<div class="span2">
 	
-	<button data-target="#myModal" href="{{URL::route('payment.downpayments')}}" data-toggle="modal" class="btn btn-small btn-info" type="button">关联预付款...</button>
+	<button data-target="#myModal" href="{{URL::route('payment.downpayments',['vendor_name'=>$vendor_name])}}" data-toggle="modal" class="btn btn-small btn-info" type="button">关联预付款...</button>
 	
 	<!--  modal content start-->
           	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>#</th>
+                <th>申请单号<br> Requisition Code</th>
                 <th>收款方 <br> Paid-to</th>
                 <th>金额 <br> Total Amount</th>
                 <th>类型 <br> Requisition Type</th>
@@ -26,8 +26,8 @@
                 @elseif($payment->status==3) class='info'
                 @elseif($payment->status==-1) class='error'
                  @endif>
-                    <td>{{$payment->id }}</td>
-                    <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}">{{$payment->vendor_name }}</a> </td>
+                    <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}">{{$payment->pmt_code }}</a> </td>
+                    <td>{{$payment->vendor_name }}</td>
                     <td>{{$payment->amount}}</td>
                     <td>@if($payment->type==1)第三方付款
                     @elseif($payment->type==2)个人报销
@@ -54,8 +54,7 @@
 							@endif
 						@elseif($payment->status<=0)
 							{{ Form::open(array('route' => array('payment.edit', Crypt::encrypt($payment->id)), 
-							 'method' => 'get', 
-							 'data-confirm' => 'Are you sure?')) }}
+							 'method' => 'get')) }}
 							 <button name='edit' type='submit' class="btn-success btn-small pull-left">编辑</button>
 							{{Form::close()}}
                         @endif

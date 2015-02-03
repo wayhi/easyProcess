@@ -173,7 +173,7 @@
 			@endif
 			
 			@if($payment->reviewer_id == $approval->approver_id)
-			<td>{{Former::textarea('comment',$approval->comment)->rows(3)->columns(10)}}</td>
+			<td>{{Former::textarea('comment','')->value($approval->comment)->rows(3)->columns(10)}}</td>
 			@else
 			<td>{{{$approval->comment}}}</td>
 			@endif

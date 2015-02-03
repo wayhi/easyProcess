@@ -12,7 +12,7 @@
 		<div class='span3'>
 		</div>
 		<div class='span6'>
-			<h3>申请单号：{{$payment->id}}</h3>
+			<h3>申请单号：{{$payment->pmt_code}}</h3>
 			
 		</div>
 		<div class='span3'>
@@ -22,7 +22,7 @@
 		<div class='span3'>
 		</div>
 		<div class='span6'>
-			<h3>付至：{{$payment->payee->vendor_name}}</h3>
+			<h3>付至：{{$payment->vendor_name}}</h3>
 			
 		</div>
 		<div class='span3'>

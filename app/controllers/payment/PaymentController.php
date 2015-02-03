@@ -4,7 +4,7 @@
 namespace App\Controllers\payment;
 
 
-use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Debugbar;
+use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Count,Debugbar;
 use Input, Redirect, Sentry, View, Validator, DB, Crypt, Payment_approval;
 
 class PaymentController extends \BaseController {
@@ -23,10 +23,15 @@ class PaymentController extends \BaseController {
   		$row_count =1;
   	
   	}
+  	if(Input::has('vendor_name')){
+  	
+  		$vendor_name = Input::get('vendor_name');
+  	}
   	
   	$acct_options = V_account::getList();//费用科目列表
   	$cctr_options=V_cctr::getList();//成本中心列表
-  	$view->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)->with('row_count',$row_count);
+  	$view->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)
+  	->with('row_count',$row_count)->with('vendor_name',$vendor_name);
   	
   	return $view;
   
@@ -158,6 +163,7 @@ class PaymentController extends \BaseController {
   					$related_pmt_id=intval(Crypt::decrypt(Input::get('related_pmt_id')));
   				} 
   				$payment = Payment::create(array(
+  					'pmt_code' => Self::generate_pmt_code($pmt_type),
   					'payee_id' => $vendor_id,
   					'vendor_name'=>$vendor_name,
   					'bank_info'=>Input::get('bank_info'),
@@ -365,7 +371,7 @@ class PaymentController extends \BaseController {
   				
   			//	提交数据
   			
-  			$payment = new Payment();
+  			//$payment = new Payment();
   			
   			$pmt = DB::transaction(function(){
   				if(Input::has('is_downpayment')){ //判断是否预付款
@@ -383,7 +389,10 @@ class PaymentController extends \BaseController {
   				
   				$vendor_name = Input::get('vendor_name');
   				$vendor_id = DB::table('vendors')->where('vendor_name',$vendor_name)->pluck('id');
+  				//if(is_null($vendor_id)){$vendor_id=0;}
+  				$vendor_id=0;
   				$payment = Payment::create(array(
+  					'pmt_code' => Self::generate_pmt_code($pmt_type),
   					'payee_id' => $vendor_id,
   					'vendor_name'=>$vendor_name,
   					'bank_info'=>Input::get('bank_info'),
@@ -566,12 +575,51 @@ class PaymentController extends \BaseController {
 		return array_unique($approvers_list);
 	}
 	
-	public function downpayments(){
+	public function downpayments($vendor_name){
 	
-		$payments = Payment::downpayments()->where('related_pmt_id','=',0)->where('status','>',0)->orderby('created_at','desc')->paginate(10);
+		$payments = Payment::downpayments()->where('related_pmt_id',0)->where('status','>',0)
+		->where('vendor_name',$vendor_name)->where('created_by_user',Sentry::getuser()->id)->orderby('created_at','desc')->paginate(5);
 		return \View::make('payment.downpayments')->with('payments',$payments);
 	
 	
+	}
+	
+	private function generate_pmt_code($type){
+		$type_code = "N/A";
+		$yearmonth = strval(Date("Y").Date("m"));
+		switch ($type){
+		
+			case -1: //downpayment
+				$type_code = 'DP'.$yearmonth;
+			break;
+			case 1: // IM, invoice management/payments to 3rd party vendor
+				$type_code = 'IM'.$yearmonth;
+			break;
+			case 2: //reimbursement,travel claims
+				$type_code = 'TR'.$yearmonth;
+			break;
+			
+		}
+		
+		$serial_record = Count::where('Year_Month',$yearmonth)->first();
+		
+		if($serial_record){
+			
+			$serial_no = intval($serial_record->serial_no)+1;
+			$serial_record->serial_no = $serial_no;
+			$serial_record->save();
+			
+		}else{
+			
+			$serial_record = new Count();
+			$serial_record->Year_Month = $yearmonth;
+			$serial_record->serial_no = 1;
+			$serial_record->save();
+			$serial_no=1;
+			
+		}
+		
+		return $type_code.strval(10000+$serial_no);
 	}
 	
 	public function missingMethod($parameters = array()){

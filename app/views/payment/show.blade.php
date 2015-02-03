@@ -2,7 +2,7 @@
  
 @section('main')
  
-     <h2 align='center'>付款申请单</h2>
+     <h2 align='center'>付款申请单</h2><h5 align='right'>申请单号:{{$payment->pmt_code}}</h5>
     <hr>
     
 
@@ -12,11 +12,9 @@
     <div class="container">
 			
 			<div class="row">
-				<div class='span2'>
-				</div>
-				<div class="span4">				
-            		
-            			
+							
+            		<div class='span2'></div>
+            		<div class='span4'>	
             			
             			<h4>{{'<p class="text-info">收款方：</p>'.$payment->vendor_name}}</h4>
 					
@@ -30,8 +28,7 @@
 			</div>
 			
 			<div class="row">
-			<div class='span2'>
-				</div>
+			    <div class='span2'></div>
 				<div class="span4">
 				<h4>{{ '<p class="text-info">总金额： </p>'.$payment->amount }}</h4>
 				</div>
@@ -39,12 +36,12 @@
 					<h4>{{ '<p class="text-info">含增值税： </p>'.$payment->vat }}</h4>
 				</div>
 				
+			
 			</div>
 			
  	<hr>
  	<div class='row'>
- 		<div class='span2'>
-				</div>
+ 		<div class='span2'></div>
  		<div class='span8'>
 			<table id="payment-matrix" class="table table-bordered">
 
@@ -85,11 +82,20 @@
 	
 					</tbody>
 				</table>   
-			</div>	
+		</div>	
 			
+ 	</div>
+ 	@if($payment->related_pmt_id>0)
+ 		<div class='row'>
+ 			<div class='span2'></div>
+ 			<div class='span6'><a target='_blank' href="{{URL::route('payment.show',Crypt::encrypt($payment->related_pmt_id))}}">
+ 			相关(预)付款</a>
+ 			</div>
  		</div>
  		
+ 		@endif	
  		<br>
+ 		
 		<div class="row">
 		<div class='span2'>
 				</div>
@@ -132,6 +138,17 @@
 				@endif
 			</div>
 			
+		</div>
+		<br>
+		<div class='row'>
+		<div class='span2'></div>
+			<div class='span3'>
+				{{'<p class="text-info">申请人：</p>'.$payment->creator->last_name}}
+			</div>
+			<div class='span3'>
+				{{ '<p class="text-info">申请日期： </p>'.$payment->created_at }}
+			</div>
+		
 		</div>
 		<hr>
 		<div class="row">

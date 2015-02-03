@@ -49,7 +49,7 @@ Route::group(array('before'=>'auth.login'),function(){
 		
 		
 	});
-	Route::get('payment/downpayments',['as'=>'payment.downpayments','uses' => 'App\Controllers\payment\PaymentController@downpayments']);
+	Route::get('payment/downpayments/{vendor_name}',['as'=>'payment.downpayments','uses' => 'App\Controllers\payment\PaymentController@downpayments']);
 	Route::post('payment/create',array('as'=>'payment.create','uses' => 'App\Controllers\payment\PaymentController@create'));		
 	Route::Resource('payment', 'App\Controllers\payment\PaymentController');
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
