@@ -15,6 +15,11 @@
 Route::get('login', array('as' => 'login', 'uses' => 'app\controllers\login\LoginController@getLogin'));
 Route::post('login','app\controllers\login\LoginController@postLogin');
 Route::get('logout', array('as'=>'logout','uses'=>'app\controllers\login\LoginController@getLogout'));
+Route::match(['get','post'],'reset_password',['as'=>'reset_password','uses'=>'app\controllers\login\LoginController@show_reset_password']);
+Route::post('email_confirm',['as'=>'email_confirm','uses'=>'app\controllers\login\LoginController@email_confirm']);
+Route::match(['get','post'],'change_password/{resetcode?}/{uid?}',['as'=>'change_password','uses'=>'app\controllers\login\LoginController@change_password']);
+Route::post('password_confirm',['as'=>'password_confirm','uses'=>'app\controllers\login\LoginController@password_confirm']);
+
 Route::group(array('before'=>'auth.login'),function(){
 
 	Route::get('/', function(){return Redirect::route('login');});

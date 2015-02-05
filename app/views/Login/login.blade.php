@@ -30,7 +30,8 @@
         <div class="controls">
         <div class="input-prepend">
           <span class="add-on"><i class="icon-envelope"></i></span>
-          {{ Form::text('email', '',array('placeholder' => '登录邮箱')) }}
+         
+          {{ Form::text('email', '',['placeholder' => '登录邮箱','value'=> Cookie::get('email')]) }}
         </div>
         </div>
       </div>
@@ -47,8 +48,8 @@
         </div>
         
         <label class="checkbox">
-          <input type="checkbox" value="remember-me"> 记住我的登录
-          <a href="">忘记密码？</a>
+          <input type="checkbox" id='remember_me' name='remember_me' value='1'> 记住我的登录
+          <a href="{{URL::route('reset_password')}}">忘记密码？</a>
         </label>
       </div>
 
