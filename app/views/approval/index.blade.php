@@ -25,14 +25,15 @@
         </thead>
         <tbody>
             @foreach ($payments as $payment)
-            	 @if($payment->status==1 or $payment->status==0 ) <tr class='warning'>
+            	 @if($payment->status==1 or $payment->status==0 ) <tr class=''>
                 @elseif($payment->status==2) <tr class='success'>
                 @elseif($payment->status==3) <tr class='info'>
                 @elseif($payment->status==-1) <tr class='error'>
                  @endif
                  	
                     <td><input type='checkbox' name='pmt_chk[]' value='{{Crypt::encrypt($payment->id)}}'></td>
-                    <td><a href="{{URL::Route('approval.edit',Crypt::encrypt($payment->id))}}">
+                    <td><a href="{{URL::Route('approval.edit',Crypt::encrypt($payment->id))}}" data-toggle="tooltip" 
+                    title="{{$payment->description}}">
                     {{$payment->pmt_code}}</a></td>
                     <td>{{$payment->vendor_name }}</td>
                     <td>{{$payment->amount}}</td>

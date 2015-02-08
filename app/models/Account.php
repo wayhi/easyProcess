@@ -10,4 +10,10 @@ class Account extends \Eloquent {
 		return $this->morphMany('Control','control');
 	
 	}
+	
+	public function group(){
+	
+		return $this->belongsTo('Acct_group','group_id','id');
+	
+	}
 }

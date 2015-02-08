@@ -12,7 +12,15 @@ class LoginController extends \BaseController {
    */
   public function getLogin()
   {
-    return View::make('Login.login');
+    if(Sentry::check()){
+    
+    	return Redirect::route('Nav.nav');
+    	
+    }else{
+    
+    	return View::make('Login.login');
+    
+    }
   }
   
   public function postLogin()

@@ -31,7 +31,7 @@
         <div class="input-prepend">
           <span class="add-on"><i class="icon-envelope"></i></span>
          
-          {{ Form::text('email', '',['placeholder' => '登录邮箱','value'=> Cookie::get('email')]) }}
+          {{ Form::text('email', '',['placeholder' => '登录邮箱']) }}
         </div>
         </div>
       </div>

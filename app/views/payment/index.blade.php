@@ -13,7 +13,6 @@
                 <th>收款方 <br> Paid-to</th>
                 <th>金额 <br> Total Amount</th>
                 <th>类型 <br> Requisition Type</th>
-                
                 <th>提交时间 <br> Created</th>
                 <th>状态 <br> Status</th>
                 <th><i class="icon-cog"></i></th>
@@ -21,12 +20,13 @@
         </thead>
         <tbody>
             @foreach ($payments as $payment)
-                <tr @if($payment->status==1 or $payment->status==0 ) class='warning'
+                <tr @if($payment->status==1 or $payment->status==0 ) class=''
                 @elseif($payment->status==2) class='success'
                 @elseif($payment->status==3) class='info'
                 @elseif($payment->status==-1) class='error'
                  @endif>
-                    <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}">{{$payment->pmt_code }}</a> </td>
+                    <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}
+                     data-toggle="tooltip" title="{{$payment->description}}">{{$payment->pmt_code }}</a> </td>
                     <td>{{$payment->vendor_name }}</td>
                     <td>{{$payment->amount}}</td>
                     <td>@if($payment->type==1)第三方付款
