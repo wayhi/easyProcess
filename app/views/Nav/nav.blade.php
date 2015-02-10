@@ -1,17 +1,8 @@
-<!--doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible"  content="IE=edge">
-  <title>easyProcess</title-->
-
 @extends('admin._layouts.default')
  
 @section('main')
 
-<!--link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}"-->
-<!--/head-->
-<!--body -->
+
    <section class="light">
 		<div class="container">
 			
@@ -105,6 +96,5 @@
         <p>&copy; easyProcess.cn 2014</p>
     </div>
 </div>
-
 
 @stop

@@ -1,9 +1,51 @@
 @extends('admin._layouts.default')
- 
-@section('main')
- 
-    <!-- Modal -->
 
+@section('main')
+ <script src="{{URL::asset('js/Chart.min.js')}}"> </script>  
+    <!-- Modal -->
+<script>
+
+$("#myModal").on("show",function(){
+	
+       $(this).find('.modal-body').css({
+              width:'800px', //probably not needed
+              height:'800px', //probably not needed 
+              'max-height':'100%'
+       });
+
+
+});
+function loadchart(){
+
+			var data = {
+		labels: ["January", "February", "March", "April", "May", "June", "July"],
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(220,220,220,0.5)",
+				strokeColor: "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(220,220,220,0.75)",
+				highlightStroke: "rgba(220,220,220,1)",
+				data: [65, 59, 80, 81, 56, 55, 40]
+			},
+			{
+				label: "My Second dataset",
+				fillColor: "rgba(151,187,205,0.5)",
+				strokeColor: "rgba(151,187,205,0.8)",
+				highlightFill: "rgba(151,187,205,0.75)",
+				highlightStroke: "rgba(151,187,205,1)",
+				data: [28, 48, 40, 19, 86, 27, 90]
+			}
+		]
+	};
+
+			var ctx = $("#myChart").get(0).getContext("2d");
+
+			var myChart = new Chart(ctx).Bar(data);
+   
+};
+
+</script>
      <h2 align='center'>付款申请单</h2>
     <hr>
 
@@ -84,13 +126,35 @@
 						</td>
 					</tr>
 					@endforeach
-	
+					<tr>
+					<td></td>	
+					<td colspan=3> 
+					<button type='button' onclick="loadchart();$('#myModal').modal('show')" class="btn btn-small btn-info">Actual vs. Budget...</button>
+					</td>
+					</tr>
 					</tbody>
 				</table>   
 			</div>	
 			
  		</div>
- 		
+ 		<!--  modal content start-->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">Actual vs. Budget：</h3>
+            </div>
+            <div class="modal-body">
+            
+            <canvas id="myChart" width="400" height="400"></canvas>
+            
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-success btn-small" data-dismiss="modal">确定</button>
+              
+            
+            </div>
+          </div>
+	
  		<br>
 		<div class="row">
 		<div class='span2'>

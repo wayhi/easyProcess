@@ -58,6 +58,7 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::post('payment/create',array('as'=>'payment.create','uses' => 'App\Controllers\payment\PaymentController@create'));		
 	Route::Resource('payment', 'App\Controllers\payment\PaymentController');
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
+	Route::get('approval/budget_chart',['as'=>'approval.budget_chart','uses'=>'App\Controllers\approval\ApproveController@budget_chart']);
 	Route::Resource('approval','App\Controllers\approval\ApproveController');
 });
 

@@ -264,5 +264,11 @@ class ApproveController extends \BaseController {
 	{
 		//
 	}
+	
+	public function budget_chart(){
+	
+		return view::make('approval.budget_chart');
+	
+	}
 
 }
