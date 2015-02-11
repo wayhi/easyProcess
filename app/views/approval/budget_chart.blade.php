@@ -3,7 +3,8 @@
     <head>
         <title>Bar Chart</title>
         <script src="{{URL::asset('js/Chart.min.js')}}"> </script>
-    
+    <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/jquery-ui.min.css') }}" rel="stylesheet">
         
     </head> 
      <body onload="getchart()">
@@ -34,16 +35,25 @@
 
 			var ctx = document.getElementById("myChart").getContext("2d");
 
-			var myChart = new Chart(ctx).Bar(data,{maintainAspectRatio: false,
-        responsive: false
-			
+			var myChart = new Chart(ctx).Bar(data,{
+				  legendTemplate : "<ul>"
+                  +"<% for (var i=0; i<datasets.length; i++) { %>"
+                    +"<li>"
+                    +"<span style='background-color: <%=datasets[i].strokeColor %>'>color</span>"
+                    +"<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>"
+                  +"</li>"
+                +"<% } %>"
+              +"</ul>"
+				  
+				 
 			});
 			
+			document.getElementById("legendDiv").innerHTML = myChart.generateLegend();
 			}
 			
 		</script>
     
-   
+   		<div id="legendDiv"></div>
        <canvas id="myChart" width="400" height="400"></canvas>
 
 

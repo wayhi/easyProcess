@@ -21,15 +21,15 @@ function loadchart(){
 		labels: ["January", "February", "March", "April", "May", "June", "July"],
 		datasets: [
 			{
-				label: "My First dataset",
+				label: "实际发生-Actual(千人民币)",
 				fillColor: "rgba(220,220,220,0.5)",
 				strokeColor: "rgba(220,220,220,0.8)",
 				highlightFill: "rgba(220,220,220,0.75)",
 				highlightStroke: "rgba(220,220,220,1)",
-				data: [65, 59, 80, 81, 56, 55, 40]
+				data: [65, 59, 80, 81, 56, 55, 140]
 			},
 			{
-				label: "My Second dataset",
+				label: "预算-Budget(千人民币)",
 				fillColor: "rgba(151,187,205,0.5)",
 				strokeColor: "rgba(151,187,205,0.8)",
 				highlightFill: "rgba(151,187,205,0.75)",
@@ -41,7 +41,22 @@ function loadchart(){
 
 			var ctx = $("#myChart").get(0).getContext("2d");
 
-			var myChart = new Chart(ctx).Bar(data);
+			var myChart = new Chart(ctx).Bar(data,{
+				  legendTemplate : "<ul>"
+                  +"<% for (var i=0; i<datasets.length; i++) { %>"
+                    +"<li>"
+                    +"<span style='background-color: <%=datasets[i].fillColor %>'>"
+                    +"<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>"
+                  +"</span></li>"
+                +"<% } %>"
+              +"</ul>"
+				  
+				  
+				  
+				 
+			});
+			
+			document.getElementById("legendDiv").innerHTML = myChart.generateLegend();
    
 };
 
@@ -144,8 +159,8 @@ function loadchart(){
               <h3 id="myModalLabel">Actual vs. Budget：</h3>
             </div>
             <div class="modal-body">
-            
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <div id="legendDiv"></div>
+            <canvas id="myChart" width="500" height="300"></canvas>
             
             </div>
             <div class="modal-footer">
