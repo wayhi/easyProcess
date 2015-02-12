@@ -13,7 +13,7 @@ class Cctr extends \Eloquent {
 	
 	public function budget(){
 	
-		return $this->hasMany('Budget','cctr_id,'id');
+		return $this->hasMany('Budget','cctr_id','id');
 		
 	}
 	

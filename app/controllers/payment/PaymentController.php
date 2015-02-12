@@ -622,17 +622,7 @@ class PaymentController extends \BaseController {
 		return $type_code.strval(10000+$serial_no);
 	}
 	
-	public function getActualExp($pmtid,$yar){
 	
-		$pmt = Payment::find($pmtid);
-		$costcenters = $pmt->cctrs;
-		$accounts = $pmt->accounts;
-		foreach($constcenters as $cctr){
-			
-		
-		}
-	
-	}
 	
 	public function missingMethod($parameters = array()){
     //

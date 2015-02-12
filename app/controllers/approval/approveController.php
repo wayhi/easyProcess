@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers\approval;
-use Sentry,Payment,Payment_approval,View, Input,Crypt, Redirect, V_account,V_cctr,Debugbar;
+use Sentry,Payment,Allocation, Payment_approval,View, Input,Crypt, Redirect, V_account,V_cctr,DB, Debugbar;
 class ApproveController extends \BaseController {
 
 	/**
@@ -137,8 +137,26 @@ class ApproveController extends \BaseController {
 			$attachement->voucher->url()]);
 			$i++;
 		}
+		$actual_ttl = self::getActualYTDExp($uid,2015);
+		$actual_acct = self::getActualByAcctandCctr($uid,2015);
+		
+		list($cctr_ids,$actualbyaccts) = array_divide($actual_acct);
+		list($acctids,$actuals) = array_divide($actualbyaccts[0]);
+		//Debugbar::info($cctr_ids);
+		$chart_js_label = "labels: ['Total'";
+		for($i=0;$i<count($acctids);$i++){
+			$v = $acct_options[$acctids[$i]];
+			$v = substr($v,0,strpos($v,'-'));
+			$chart_js_label = $chart_js_label.",'".$v."'";
+		
+		}
+		$chart_js_label = $chart_js_label."],";
+		//list($cctr_ids,$actualbyaccts) = array_divide($actual_acct);
+		Debugbar::info($actual_ttl);
+		Debugbar::info($actual_acct);
+		Debugbar::info($chart_js_label);
 		return \View::make('approval.edit')->with('payment',$payment)->with('attachement_list',$attachement_list)
-		->with('cctr_options', $cctr_options)->with('acct_options',$acct_options);
+		->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)->with('chart_js_label',$chart_js_label)->with('actual_acct',$actual_acct);
 	}
 
 	/**
@@ -270,5 +288,39 @@ class ApproveController extends \BaseController {
 		return view::make('approval.budget_chart');
 	
 	}
+	
+	private function getActualYTDExp($pmtid,$year){
+		//YTD actual expenses by cost center according to the Payment provided
+		
+		$pmt = Payment::find($pmtid);
+		$costcenters = $pmt->cctrs;
+		//$accounts = $pmt->accounts;
+		$ttl_amount=[];
+		$allocations = Allocation::whereIn('pmt_id',Payment::where(DB::raw('year(created_at)'),$year)->where('status','>',0)->lists('id'));
+		$ttl_amount = $allocations->whereIn('cctr_id',$costcenters->lists('id'))->groupby('cctr_id')->select('cctr_id',DB::raw('sum(amount_final) as amount'))->lists('amount','cctr_id');
+		
+		return $ttl_amount;
+	
+	}
+	
+	private function getActualByAcctandCctr($pmtid,$year){
+		//YTD actual expenses by cost centers & Accounts according to the Payment provided
+		
+		
+		$pmt = Payment::find($pmtid);
+		$costcenters = $pmt->cctrs;
+		$accounts = $pmt->accounts;
+		$acct_amounts=[];
+		$allocations = Allocation::whereIn('pmt_id',Payment::where(DB::raw('year(created_at)'),$year)->where('status','>',0)->lists('id'));
+		foreach ($costcenters as $cctr){
+		
+		 $amount_tmp = $allocations->where('cctr_id',$cctr->id)->whereIn('acct_id',$accounts->lists('id'))->groupby('acct_id')->select('acct_id',DB::raw('sum(amount_final) as amount'))->lists('amount','acct_id');
+		 $acct_amounts =array_add($acct_amounts,$cctr->id,$amount_tmp);
+		
+		}
+		return $acct_amounts;
+	}
+	
+	
 
 }
