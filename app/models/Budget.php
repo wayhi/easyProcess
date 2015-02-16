@@ -13,7 +13,7 @@ class Budget extends \Eloquent {
 	
 	public function acct_group(){
 	
-		return $this->belongsTo('Acct_group','acct_group_id','id')
+		return $this->belongsTo('Acct_group','acct_group_id','id');
 	
 	
 	}

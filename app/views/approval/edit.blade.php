@@ -18,8 +18,8 @@ $("#myModal").on("show",function(){
 function loadchart(){
 
 			var data = {
-		//labels: ["Total", "February", "March", "April", "May", "June", "July"],
-		{{$chart_js_label}}
+		labels: ["YTD", "Full Year"],
+		
 		datasets: [
 			{
 				label: "实际发生-Actual(千人民币)",
@@ -27,7 +27,7 @@ function loadchart(){
 				strokeColor: "rgba(220,220,220,0.8)",
 				highlightFill: "rgba(220,220,220,0.75)",
 				highlightStroke: "rgba(220,220,220,1)",
-				data: [65, 59, 80]
+				{{$actual[0]}}
 			},
 			{
 				label: "预算-Budget(千人民币)",
@@ -35,7 +35,7 @@ function loadchart(){
 				strokeColor: "rgba(151,187,205,0.8)",
 				highlightFill: "rgba(151,187,205,0.75)",
 				highlightStroke: "rgba(151,187,205,1)",
-				data: [28, 48, 40]
+				{{$budget[0]}}
 			}
 		]
 	};

@@ -11,9 +11,10 @@ class Cctr extends \Eloquent {
 	
 	}
 	
-	public function budget(){
+	public function budget_fullyear($year){
 	
-		return $this->hasMany('Budget','cctr_id','id');
+		return $this->hasMany('Budget','cctr_id','id')->where('budget_data.year',$year)
+		->select(DB::raw('sum(budget_amount) as budget'))->pluck('budget');
 		
 	}
 	

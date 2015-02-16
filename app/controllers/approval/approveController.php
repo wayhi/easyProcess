@@ -138,11 +138,22 @@ class ApproveController extends \BaseController {
 			$i++;
 		}
 		$actual_ttl = self::getActualYTDExp($uid,2015);
-		$actual_acct = self::getActualByAcctandCctr($uid,2015);
+		$budget_fullyear = self::getBudget_Fullyear($uid,2015);
+		$cctrs = $payment->cctrs;
+		$k=0;
+		foreach ($cctrs as $cctr){
+			$chart_js_data_budget[$k] = 'data:['.(string)($budget_fullyear[$cctr->id]/1000).','.'0]';
+			$chart_js_data_actual[$k] = 'data: ['.(string)($actual_ttl[$cctr->id]/1000).','.(string)($actual_ttl[$cctr->id]/1000).']';
+			$k++;
+		}
 		
+		Debugbar::info($budget_fullyear);
+		Debugbar::info($actual_ttl);
+		
+		/*
+		$actual_acct = self::getActualByAcctandCctr($uid,2015);
 		list($cctr_ids,$actualbyaccts) = array_divide($actual_acct);
 		list($acctids,$actuals) = array_divide($actualbyaccts[0]);
-		//Debugbar::info($cctr_ids);
 		$chart_js_label = "labels: ['Total'";
 		for($i=0;$i<count($acctids);$i++){
 			$v = $acct_options[$acctids[$i]];
@@ -152,11 +163,9 @@ class ApproveController extends \BaseController {
 		}
 		$chart_js_label = $chart_js_label."],";
 		//list($cctr_ids,$actualbyaccts) = array_divide($actual_acct);
-		Debugbar::info($actual_ttl);
-		Debugbar::info($actual_acct);
-		Debugbar::info($chart_js_label);
+		*/
 		return \View::make('approval.edit')->with('payment',$payment)->with('attachement_list',$attachement_list)
-		->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)->with('chart_js_label',$chart_js_label)->with('actual_acct',$actual_acct);
+		->with('cctr_options', $cctr_options)->with('acct_options',$acct_options)->with('actual',$chart_js_data_actual)->with('budget',$chart_js_data_budget);
 	}
 
 	/**
@@ -301,6 +310,18 @@ class ApproveController extends \BaseController {
 		
 		return $ttl_amount;
 	
+	}
+	
+	private function getBudget_Fullyear($pmtid,$year){
+	
+		$pmt = Payment::find($pmtid);
+		$costcenters = $pmt->cctrs;
+		$budget_fullyear=[];
+		foreach($costcenters as $cctr){
+			$budget_fullyear = array_add($budget_fullyear,$cctr->id,$cctr->budget_fullyear($year));
+		}
+		
+		return $budget_fullyear;
 	}
 	
 	private function getActualByAcctandCctr($pmtid,$year){
