@@ -139,16 +139,17 @@ class ApproveController extends \BaseController {
 		}
 		$actual_ttl = self::getActualYTDExp($uid,2015);
 		$budget_fullyear = self::getBudget_Fullyear($uid,2015);
+		$budget_YTD = self::getBudget_YTD($uid,2015,2);
 		$cctrs = $payment->cctrs;
 		$k=0;
 		foreach ($cctrs as $cctr){
-			$chart_js_data_budget[$k] = 'data:['.(string)($budget_fullyear[$cctr->id]/1000).','.'0]';
+			$chart_js_data_budget[$k] = 'data:['.(string)($budget_YTD[$cctr->id]/1000).','.(string)($budget_fullyear[$cctr->id]/1000).']';
 			$chart_js_data_actual[$k] = 'data: ['.(string)($actual_ttl[$cctr->id]/1000).','.(string)($actual_ttl[$cctr->id]/1000).']';
 			$k++;
 		}
 		
-		Debugbar::info($budget_fullyear);
-		Debugbar::info($actual_ttl);
+		//Debugbar::info($budget_fullyear);
+		//Debugbar::info($actual_ttl);
 		
 		/*
 		$actual_acct = self::getActualByAcctandCctr($uid,2015);
@@ -322,6 +323,19 @@ class ApproveController extends \BaseController {
 		}
 		
 		return $budget_fullyear;
+	}
+	
+	private function getBudget_YTD($pmtid,$year,$month){
+	
+		$pmt = Payment::find($pmtid);
+		$costcenters = $pmt->cctrs;
+		$budget_YTD=[];
+		foreach($costcenters as $cctr){
+			$budget_YTD = array_add($budget_YTD,$cctr->id,$cctr->budget_YTD($year,$month));
+		}
+		
+		return $budget_YTD;
+	
 	}
 	
 	private function getActualByAcctandCctr($pmtid,$year){
