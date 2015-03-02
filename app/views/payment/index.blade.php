@@ -25,7 +25,9 @@
                 @elseif($payment->status==3) class='info'
                 @elseif($payment->status==-1) class='error'
                  @endif>
+
                     <td><a href="{{URL::Route('payment.show',Crypt::encrypt($payment->id))}}" 
+
                      data-toggle="tooltip" title="{{$payment->description}}">{{$payment->pmt_code }}</a> </td>
                     <td>{{$payment->vendor_name }}</td>
                     <td>{{$payment->amount}}</td>
