@@ -23,6 +23,7 @@ class PaymentController extends \BaseController {
   		$row_count =1;
   	
   	}
+    $vendor_name="";
   	if(Input::has('vendor_name')){
   	
   		$vendor_name = Input::get('vendor_name');

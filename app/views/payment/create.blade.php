@@ -11,7 +11,8 @@
             <div class="alert alert-error">
                     {{ implode('<br>', $errors->all()) }}
             </div>
-    @endif--!>
+    @endif
+    --> 
 
 	
     {{ Former::secure_open()->id('PaymentForm')->route('payment.store')->Method('POST')->class('form-inline')

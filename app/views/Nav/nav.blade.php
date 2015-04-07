@@ -1,5 +1,5 @@
 @extends('admin._layouts.default')
- 
+ <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/fa.css') }}">
 @section('main')
 
 
@@ -22,7 +22,7 @@
 				</div>
 				<div class="span4">
 					<span class="circle circle-lg circle-green">
-						<i class="fa fa-file-text-o"></i>
+						<i class="fa fa-cny"></i>
 					</span>
 					<h4>个人报销</h4>
 					<p>
@@ -71,7 +71,7 @@
 				
 				<div class="span4">
 					<span class="circle circle-lg">
-						<i class="fa fa-wrench"></i>
+						<i class="fa fa-cogs"></i>
 					</span>
 					<h4><a href="{{URL::route('admin.approval.create')}}">系统管理</a></h4>
 					<p>
