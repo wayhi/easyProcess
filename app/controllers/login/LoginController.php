@@ -2,7 +2,7 @@
 
 namespace app\controllers\login;
 
-use Auth, BaseController, Validator, Form, Input, Redirect, URL, Sentry, View, Payment,Crypt, Notification;
+use Auth, BaseController, Validator, Form, Input, Redirect, URL, Sentry, View, Payment,Crypt, Notification,Mail;
 
 class LoginController extends \BaseController {
 
@@ -79,24 +79,33 @@ class LoginController extends \BaseController {
   	
   }
   
+  
+  
   public function email_confirm(){
-  	try{
-    	// Find the user using the user email address
-    	$user = Sentry::findUserByLogin(Input::get('Email'));
+    try{
+      // Find the user using the user email address
+      $user = Sentry::findUserByLogin(Input::get('Email'));
 
-   		 // Get the password reset code
-    	$resetCode = $user->getResetPasswordCode();
-		echo URL::route('change_password',['resetCode'=>Crypt::encrypt($resetCode),'userid'=>Crypt::encrypt($user->id)]);
-    	// Now you can send this code to your user via email for example.
-	}catch (\Exception $e){
-    	Notification::error( '没有发现该用户。User was not found.');
-    	return redirect::route('reset_password');
-    }
+       // Get the password reset code
+      $resetCode = $user->getResetPasswordCode();
+    //echo URL::route('change_password',['resetCode'=>Crypt::encrypt($resetCode),'userid'=>Crypt::encrypt($user->id)]);
+      // Now you can send this code to your user via email for example.
+      $data = ['email'=>$user->email, 'name'=>$user->last_name, 'uid'=>$user->id, 'activationcode'=>$resetCode];
+      Mail::send('activemail', $data, function($message) use($data){
+        $message->to($data['email'], $data['name'])->subject('【密码重置 Reset Password】');
+      });
+      Notification::success('An email with the link to Reset Password was sent to the address you provided,
+         please follow it to complete the process.');
+     }catch (\Exception $e){
+        Notification::error( '没有发现该用户。User was not found.');
+        return redirect::back();
+      }
     
-
+    return redirect::back();
   
   }
-  
+
+
   public function change_password($resetCode,$uid){
   	
   	try{	

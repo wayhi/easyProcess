@@ -24,13 +24,13 @@ class Payment extends \Eloquent {
 	
 	public function cctrs(){
 		
-		return $this->belongsToMany('Cctr','Allocations','pmt_id','cctr_id');
+		return $this->belongsToMany('Cctr','allocations','pmt_id','cctr_id');
 	
 	}
 	
 	public function accounts(){
 	
-		return $this->belongsToMany('Account','Allocations','pmt_id','acct_id');
+		return $this->belongsToMany('Account','allocations','pmt_id','acct_id');
 	}
 	
 	public function approvals(){

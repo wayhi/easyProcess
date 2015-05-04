@@ -25,6 +25,7 @@
 					<h4>{{'<p class="text-info">银行账号：</p>'.$payment->bank_info}}</h4>
 					
 				</div>
+
 			</div>
 			
 			<div class="row">
@@ -41,8 +42,8 @@
 			
  	<hr>
  	<div class='row'>
- 		<div class='span2'></div>
- 		<div class='span8'>
+ 		
+ 		<div class='span12'>
 			<table id="payment-matrix" class="table table-bordered">
 
 				<thead> 
@@ -87,7 +88,7 @@
  	</div>
  	@if($payment->related_pmt_id>0)
  		<div class='row'>
- 			<div class='span2'></div>
+ 			
  			<div class='span6'><a target='_blank' href="{{URL::route('payment.show',Crypt::encrypt($payment->related_pmt_id))}}">
  			相关(预)付款</a>
  			</div>
@@ -97,19 +98,18 @@
  		<br>
  		
 		<div class="row">
-		<div class='span2'>
-				</div>
-			<div class='span3'>
+		
+			<div class='span4'>
 			
 				{{ '<p class="text-info">发票号码-Invoice Code：</p>'.$payment->invoice_code}}
 				
 			</div>
-			<div class='span3'>
+			<div class='span4'>
 			
 				{{ '<p class="text-info">订单号码-PO：</p>'.$payment->order_number}}
 				
 			</div>
-			<div class='span3'>
+			<div class='span4'>
 			
 				{{ '<p class="text-info">计划付款日期-Due Date：</p>'.$payment->pmt_due_date}}
 				
@@ -117,20 +117,19 @@
 		</div>
 		<br>
 		<div class="row">
-		<div class='span2'>
-				</div>
-			<div class='span3'>
+		
+			<div class='span4'>
 			
 				<p class="text-info">付款事由-Purpose：</p>{{{$payment->description}}}
 				
 			</div>
-			<div class='span3'>
+			<div class='span4'>
 			
 				{{ '<p class="text-info">备注-Memo：</p>'.$payment->memo}}
 				
 			</div>
 			
-			<div class='span3'>
+			<div class='span4'>
 				@if($attachement_list!=[])
 				{{'<p class="text-info">附件-Attachement(s)：</p>'.
 				
@@ -141,11 +140,11 @@
 		</div>
 		<br>
 		<div class='row'>
-		<div class='span2'></div>
-			<div class='span3'>
+		
+			<div class='span4'>
 				{{'<p class="text-info">申请人：</p>'.$payment->creator->last_name}}
 			</div>
-			<div class='span3'>
+			<div class='span4'>
 				{{ '<p class="text-info">申请日期： </p>'.$payment->created_at }}
 			</div>
 		

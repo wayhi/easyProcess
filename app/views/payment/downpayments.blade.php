@@ -20,7 +20,7 @@
                 @elseif($payment->status==-1) <tr class='error'>
                  @endif
                     <td><input type='checkbox' name='related_pmt_id' value='{{Crypt::encrypt($payment->id)}}'></td>
-                    <td>{{$payment->vendor_name }}</a> </td>
+                    <td>{{$payment->vendor_name }}</td>
                     <td>{{$payment->amount}}</td>
                     
                     <td>{{$payment->created_at }}</td>

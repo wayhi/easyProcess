@@ -35,12 +35,9 @@ Route::group(array('before'=>'auth.login'),function(){
 				});
 	Route::get('banksearch',function(){
 		return DB::table('v_bankinfo')->where('vendor_name',Input::get('term'))->lists('bank_info');
-	
 	});	
 	Route::get('getApprovalSettings',function(){
-		
 		switch(Input::get('term')){
-			
 			case "1":
 				return V_cctr::all()->toJson();
 			break;
@@ -49,9 +46,7 @@ Route::group(array('before'=>'auth.login'),function(){
 			break;
 			case "3":
 			break;
-		
 		}
-		
 		
 	});
 	Route::get('payment/downpayments/{vendor_name}',['as'=>'payment.downpayments','uses' => 'App\Controllers\payment\PaymentController@downpayments']);
