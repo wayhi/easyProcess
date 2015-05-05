@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => '', 'name' => 'Administrator'),
+	'from' => array('address' => 'wayhi@163.com', 'name' => 'Administrator'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => '',
+	'username' => 'wayhi@163.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => '',
+	'password' => 'Dragon@25',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -119,6 +119,6 @@ return array(
 	|
 	*/
 
-	'pretend' => false,
+	'pretend' => true,
 
 );

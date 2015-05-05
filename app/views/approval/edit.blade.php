@@ -15,6 +15,17 @@ $("#myModal").on("show",function(){
 
 
 });
+
+$("#myModal_approve").on("show",function(){
+	
+       $(this).find('.modal-body').css({
+              width:'800px', //probably not needed
+              height:'800px', //probably not needed 
+              'max-height':'100%'
+       });
+
+
+});
 function loadchart(){
 
 			var data = {
@@ -279,7 +290,7 @@ function loadchart(){
 				<div class="form-actions">
 				
             		{{Former::submit('批准')->class('btn-success btn-small')->name('approve')}}  
-            		<a href="#myModal"  data-toggle="modal" class="btn btn-primary btn-small">批准并抄送...</a>
+            		<a href="#myModal_approve"  data-toggle="modal" class="btn btn-primary btn-small">批准并抄送...</a>
 					{{Former::submit('驳回')->class('btn-danger btn-small')->name('reject')}} 
 					
 				</div>
@@ -289,26 +300,26 @@ function loadchart(){
         	
 					
 			<!--  modal content start-->
-          	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h3 id="myModalLabel">选择需要抄送的人员：</h3>
-            </div>
-            <div class="modal-body">
-              
-              {{ Former::select('approver_id[]')->multiple()->label('增加审批者：')->options(User::activated()->whereNotIn('id',$payment->approvers->lists('id'))
-              ->where('id','<>',$payment->created_by_user)->orderBy('last_name')->lists('last_name','id'))}} 
-              
-              
-			</div>
-            <div class="modal-footer">
-              <button class="btn" data-dismiss="modal">关闭</button>
-              
-              <input class="btn btn-success" type='submit' name='approve_forward' value='批准'>
-              
-            
-            </div>
-          </div>
+          	<div id="myModal_approve" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModal_approveLabel" aria-hidden="true">
+	            <div class="modal-header">
+	              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	              <h3 id="myModal_approveLabel">选择需要抄送的人员：</h3>
+	            </div>
+	            <div class="modal-body">
+	              
+	              {{ Former::select('approver_id[]')->multiple()->label('增加审批者：')->options(User::activated()->whereNotIn('id',$payment->approvers->lists('id'))
+	              ->where('id','<>',$payment->created_by_user)->orderBy('last_name')->lists('last_name','id'))}} 
+	              
+	              
+				</div>
+	            <div class="modal-footer">
+	              <button class="btn" data-dismiss="modal">关闭</button>
+	              
+	              <input class="btn btn-success" type='submit' name='approve_forward' value='批准'>
+	              
+	            
+	            </div>
+	        </div>
   			<!--Modal content end -->
         	 </div>
 		

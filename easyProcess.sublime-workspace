@@ -4,6 +4,7 @@
 		"selected_items":
 		[
 			[
+<<<<<<< Updated upstream
 				"activi",
 				"activity_id"
 			],
@@ -22,6 +23,14 @@
 			[
 				"amou",
 				"amount_actual"
+=======
+				"vendor",
+				"$vendor_name〔variable〕"
+			],
+			[
+				"i",
+				"getId〔function〕"
+>>>>>>> Stashed changes
 			],
 			[
 				"get",
@@ -277,6 +286,7 @@
 	],
 	"file_history":
 	[
+<<<<<<< Updated upstream
 		"/Applications/MAMP/htdocs/easyProcess/app/routes.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/views/activemail.blade.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/controllers/payment/PaymentController.php",
@@ -284,6 +294,16 @@
 		"/Applications/MAMP/htdocs/easyProcess/app/controllers/login/LoginController.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/views/payment/show.blade.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/models/Payment.php",
+=======
+		"/Applications/MAMP/htdocs/easyProcess/app/views/admin/_partials/assets.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/Nav/nav.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/payment/create.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/controllers/payment/PaymentController.php",
+		"/Applications/MAMP/htdocs/easyProcess/public/css/fa.css",
+		"/Applications/MAMP/htdocs/clarins/app/views/default_activity.blade.php",
+		"/Applications/MAMP/htdocs/clarins/app/models/Order.php",
+		"/Applications/MAMP/htdocs/clarins/app/views/items/showcart.blade.php",
+>>>>>>> Stashed changes
 		"/Applications/MAMP/htdocs/clarins/app/controllers/LoginController.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/config/mail.php",
 		"/Applications/MAMP/htdocs/clarins/app/views/items/search.blade.php",

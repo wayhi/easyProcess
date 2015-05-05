@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'PRC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -125,7 +125,7 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
 		'Former\FormerServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
+		//'Barryvdh\Debugbar\ServiceProvider',
 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 
 	),
@@ -197,7 +197,7 @@ return array(
 		'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Notification'      => 'Krucas\Notification\Facades\Notification',
 		'Former' 			=> 'Former\Facades\Former',
-		'Debugbar' 			=> 'Barryvdh\Debugbar\Facade',
+		//'Debugbar' 			=> 'Barryvdh\Debugbar\Facade',
 	),
 
 );
