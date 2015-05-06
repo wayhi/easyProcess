@@ -5,7 +5,7 @@
 {{Notification::showAll()}}
 
 
-{{Debugbar::info($payment)}}
+
 <div class='container'>
 
 	<div class='row'>

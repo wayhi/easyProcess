@@ -4,7 +4,7 @@
 namespace App\Controllers\payment;
 
 
-use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Count,Debugbar;
+use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Count;
 use Input, Redirect, Sentry, View, Validator, DB, Crypt, Payment_approval;
 
 class PaymentController extends \BaseController {
@@ -178,7 +178,7 @@ class PaymentController extends \BaseController {
   					'invoice_code' => Input::get('invoice_code'),
   					'status' => 1,
   					'order_number' => Input::get('order_number'),
-  					'pmt_due_date' => Input::get('pmt_due_date'),
+  					'pmt_due_date' => ''.Input::get('pmt_due_date'),
   					'urgency' => 0,
   					'description' => Input::get('description'),
   					'memo'=> Input::get('memo'),
