@@ -22,9 +22,9 @@
 				</div>
 				<div class="span4">
 					<span class="circle circle-lg circle-green">
-						<i class="fa fa-cny"></i>
+						<i class="fa fa-file-text-o"></i>
 					</span>
-					<h4>个人报销</h4>
+					<h4><a href="{{URL::route('reimbuse.create')}}">个人报销</a><h4>
 					<p>
 						
 					</p>

@@ -8,14 +8,14 @@
 <div class='container'>
     <table class="table">
         <thead>
-            <tr>
+            <tr >
                 <th>申请单号<br> Requisition Code</th>
                 <th>收款方 <br> Paid-to</th>
                 <th>金额 <br> Total Amount</th>
                 <th>类型 <br> Requisition Type</th>
                 <th>提交时间 <br> Created</th>
                 <th>状态 <br> Status</th>
-                <th><i class="icon-cog"></i></th>
+                <th>操作<br> Action</th>
             </tr>
         </thead>
         <tbody>
