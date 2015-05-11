@@ -4,7 +4,7 @@
 
 
    <section class="light">
-		<div class="container">
+		<div class="container" style="background-color:#f5f5f5;border: none">
 			
 			<div class="row text-center ">
 				<div class="span4">

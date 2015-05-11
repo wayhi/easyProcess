@@ -6,14 +6,34 @@
 <div class='row'>
 
 	<div class='span3'>
-		<div class='box'>
-			<span class="">
-						<i class="fa fa-file-text-o"></i>
-					</span>
-					<h4><a href="{{URL::route('reimbuse.create')}}">个人报销</a><h4>
-			
-		</div>
+		
+			<span class="rounded rounded-green rounded-lg rounded-white-icon">
+				<i class="fa fa-plus"></i><br>
+				<a style="font-size: 10px" href="{{URL::route('reimbuse.create')}}">新的报销</a>
+			</span>
 	</div>	
+	<div class='span3'>	
+		<< &nbsp &nbsp  	
+			<span class="rounded rounded-orange rounded-lg rounded-white-icon">
+				<i class="fa fa-file-text-o"></i><br>
+				
+			</span>
+	</div>		
+
+	<div class='span3'>		
+			<span class="rounded rounded-orange rounded-lg rounded-white-icon">
+				<i class="fa fa-file-text-o"></i><br>
+				
+			</span>
+	</div>			
+	<div class='span3'>		
+			<span class="rounded rounded-orange rounded-lg rounded-white-icon">
+				<i class="fa fa-file-text-o"></i><br>	
+			</span>
+			&nbsp &nbsp  >>
+	</div>			
+		
+	
 
 </div>
 
