@@ -91,7 +91,15 @@
 			"file": "app/views/reimbursement/new_report.blade.php",
 			"settings":
 			{
-				"buffer_size": 857,
+				"buffer_size": 1493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".gitattributes",
+			"settings":
+			{
+				"buffer_size": 12,
 				"line_ending": "Unix"
 			}
 		},
@@ -107,7 +115,7 @@
 			"file": "app/views/Nav/nav.blade.php",
 			"settings":
 			{
-				"buffer_size": 1893,
+				"buffer_size": 1939,
 				"line_ending": "Unix"
 			}
 		},
@@ -131,7 +139,7 @@
 			"file": "public/css/nav.css",
 			"settings":
 			{
-				"buffer_size": 11384,
+				"buffer_size": 12101,
 				"line_ending": "Unix"
 			}
 		},
@@ -145,9 +153,14 @@
 		}
 	],
 	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -159,7 +172,11 @@
 	},
 	"console":
 	{
-		"height": 0.0
+		"height": 0.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
 	},
 	"distraction_free":
 	{
@@ -170,6 +187,10 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Applications/MAMP/htdocs/easyProcess"
+	],
 	"file_history":
 	[
 		"/Applications/MAMP/htdocs/easyProcess/public/js/local.js",
@@ -276,23 +297,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "app/views/reimbursement/new_report.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 857,
+						"buffer_size": 1493,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								141,
-								141
+								280,
+								280
 							]
 						],
 						"settings":
@@ -305,11 +327,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": ".gitattributes",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 12,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "app/views/payment/create.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 4534,
@@ -331,22 +383,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "app/views/Nav/nav.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1893,
+						"buffer_size": 1939,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								183,
-								183
+								0,
+								0
 							]
 						],
 						"settings":
@@ -359,11 +413,13 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "app/routes.php",
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 3980,
@@ -387,11 +443,13 @@
 						"translation.y": 213.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "app/controllers/reimburse/ReimburseController.php",
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 1456,
@@ -415,22 +473,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "public/css/nav.css",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11384,
+						"buffer_size": 12101,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4427,
-								4427
+								0,
+								0
 							]
 						],
 						"settings":
@@ -441,11 +501,13 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "app/views/admin/_partials/assets.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 411,
@@ -467,6 +529,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -507,6 +570,8 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "",
+	"project": "easyProcess.sublime-project",
 	"replace":
 	{
 		"height": 64.0
@@ -515,6 +580,7 @@
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -523,15 +589,32 @@
 	"select_project":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
 		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 229.0,
-	"status_bar_visible": true
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
 }

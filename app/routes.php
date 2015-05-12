@@ -55,7 +55,7 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
 	Route::get('approval/budget_chart',['as'=>'approval.budget_chart','uses'=>'App\Controllers\approval\ApproveController@budget_chart']);
 	Route::Resource('approval','App\Controllers\approval\ApproveController');
-	Route::Resource('reimbuse','App\Controllers\reimburse\ReimburseController');
+	Route::Resource('reimburse','App\Controllers\reimburse\ReimburseController');
 });
 
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));

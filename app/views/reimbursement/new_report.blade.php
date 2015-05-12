@@ -7,7 +7,7 @@
 
 	<div class='span3'>
 		
-			<a href="{{URL::route('reimbuse.create')}}"><span class="rounded rounded-green rounded-lg rounded-white-icon">
+			<a href="{{URL::route('reimburse.create')}}"><span class="rounded rounded-green rounded-lg rounded-white-icon">
 				<i class="fa fa-plus"></i><br>
 				新的报销
 			</span></a>
@@ -16,9 +16,9 @@
 		<b><< &nbsp &nbsp  	</b>
 			<a href=""><span class="rounded rounded-orange rounded-lg rounded-white-icon">
 				<div align='left' style="font-size: 11px;color: #fff">
-				<br>	申请名称：<br>
-				<br>	金额：<br>
-				<br>	日期：<br>
+				<br>&nbsp	申请名称：<br>
+				<br>&nbsp	金额：<br>
+				<br>&nbsp	日期：<br>
 				</div>
 				<br>保存中
 			</span></a>
@@ -73,5 +73,22 @@
 	<a type='button' class='btn btn-success btn-sm'>添加至已有申请</a>
 	<a type='button' class='btn btn-danger btn-sm'>删除费用</a>
 </div>
+<hr>
+
+<div class='row'>
+
+	<div class="span3">
+		<span class="rounded rounded-lg rounded-white-icon">
+			<i class="fa fa-upload"></i><br>
+				上传凭证
+		</span>
+	</div>
+</div>
+
+
+
+
+
+
 
 @stop
