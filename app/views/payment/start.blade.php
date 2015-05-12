@@ -8,11 +8,8 @@
     {{ Notification::showAll() }}
      
  	
-    {{ Former::secure_open()->id('VendorForm')->route('payment.create')->Method('POST')->class('form-inline')
-    	
-    
-     }}
-   
+    {{ Former::secure_open()->id('VendorForm')->route('payment.create')->Method('POST')->class('form-inline')}}
+   <br><br>
     <div class="container">
 			
 			<div class="row">
