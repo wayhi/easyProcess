@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\reimburse;
 
-use V_cctr,V_account,Payment,Allocation,Notification,Attachement,Control,Count;
+use Allocation,Notification,Attachement,Control,Count,Expense,Exp_group;
 use Input, Redirect, Sentry, View, Validator, DB, Crypt, Payment_approval;
 
 class ReimburseController extends \BaseController {
@@ -85,6 +85,14 @@ class ReimburseController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function expense_list()
+	{
+		//echo "ok";
+		$exp_groups = Exp_group::with('expenses')->get();
+		return View::make('reimbursement.expense_list')->with('exp_groups',$exp_groups);
+
 	}
 
 }

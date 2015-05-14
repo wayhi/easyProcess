@@ -55,6 +55,7 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::Resource('vendor','App\Controllers\vendor\VendorController');
 	Route::get('approval/budget_chart',['as'=>'approval.budget_chart','uses'=>'App\Controllers\approval\ApproveController@budget_chart']);
 	Route::Resource('approval','App\Controllers\approval\ApproveController');
+	Route::get('reimburse/expense_list',['as'=>'reimburse.expense_list','uses'=>'App\Controllers\reimburse\ReimburseController@expense_list']);
 	Route::Resource('reimburse','App\Controllers\reimburse\ReimburseController');
 });
 

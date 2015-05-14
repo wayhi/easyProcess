@@ -19,6 +19,8 @@
         <p>&copy; easyProcess.cn 2014</p>
       </div>
   </div>
-
+<script src="{{ URL::asset('js/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/local.js') }}"></script>
 </body>
 </html>
