@@ -3,6 +3,7 @@
 @section('main')
 
 {{ Notification::showAll() }}
+<hr>
 {{Former::secure_open()->id('PaymentApprovalList')->route('approval.store')->Method('post')->class('form-inline')}}
 {{Former::submit('批准')->class('btn-success btn-small')->name('approve')}}   
 {{Former::submit('驳回')->class('btn-danger btn-small')->name('reject')}} 

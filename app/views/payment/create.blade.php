@@ -116,7 +116,7 @@
 		
 		<td>
 			
-				{{Former::text('amount_'.$i,false)->prepend('￥')->class('span2')}}
+			{{Former::text('amount_'.$i,false)->prepend('￥')->class('span2')}}
 			
 		</td>
 	</tr>

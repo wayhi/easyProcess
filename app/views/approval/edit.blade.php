@@ -325,5 +325,5 @@ function loadchart(){
 		
 		
 </div>
-
+{{Former::close();}}
 @stop

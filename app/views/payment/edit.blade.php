@@ -8,11 +8,13 @@
 
     {{ Notification::showAll() }}
      
-   <!-- @if ($errors->any())
+   <!- @if ($errors->any())
             <div class="alert alert-error">
                     {{ implode('<br>', $errors->all()) }}
             </div>
-    @endif--!>
+    @endif 
+
+    --!>
 
 	{{ Former::secure_open()->id('PaymentForm')->route('payment.update',Crypt::encrypt($payment->id))->Method('put')->class('form-inline')
     	->enctype('multipart/form-data')

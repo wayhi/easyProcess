@@ -95,4 +95,13 @@ class ReimburseController extends \BaseController {
 
 	}
 
+	public function expense_input($id)
+	{
+
+		return View::make('reimbursement.expense_input')->with('expense_id',$id);
+
+
+
+	}
+
 }

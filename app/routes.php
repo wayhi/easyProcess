@@ -56,12 +56,11 @@ Route::group(array('before'=>'auth.login'),function(){
 	Route::get('approval/budget_chart',['as'=>'approval.budget_chart','uses'=>'App\Controllers\approval\ApproveController@budget_chart']);
 	Route::Resource('approval','App\Controllers\approval\ApproveController');
 	Route::get('reimburse/expense_list',['as'=>'reimburse.expense_list','uses'=>'App\Controllers\reimburse\ReimburseController@expense_list']);
+	Route::get('reimburse/expense_input/{expense_id}',['as'=>'reimburse.expense_input','uses'=>'App\Controllers\reimburse\ReimburseController@expense_input']);
 	Route::Resource('reimburse','App\Controllers\reimburse\ReimburseController');
 });
 
-Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
-Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
-Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
+
 
 Route::group(array('prefix' => 'admin', 'before' => 'auth.login'), function()
 {

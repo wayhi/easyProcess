@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"reimbur",
+				"reimbursement"
+			],
+			[
+				"t",
+				"table	Tag"
+			],
+			[
+				"th",
+				"th	Tag"
+			],
+			[
+				"te",
+				"text-align: 〔property〕"
+			],
+			[
+				"v",
+				"vertical-align: 〔property〕"
+			],
+			[
+				"fo",
+				"font-size: 〔property〕"
+			],
+			[
 				"vendor",
 				"$vendor_name〔variable〕"
 			],
@@ -87,16 +111,86 @@
 	},
 	"buffers":
 	[
+<<<<<<< Updated upstream
+=======
+		{
+			"file": "app/views/reimbursement/new_report.blade.php",
+			"settings":
+			{
+				"buffer_size": 2370,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/reimbursement/expense_list.blade.php",
+			"settings":
+			{
+				"buffer_size": 286,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/payment/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 4534,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes.php",
+			"settings":
+			{
+				"buffer_size": 4122,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/reimburse/ReimburseController.php",
+			"settings":
+			{
+				"buffer_size": 1639,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/payment/downpayments.blade.php",
+			"settings":
+			{
+				"buffer_size": 1600,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Expense.php",
+			"settings":
+			{
+				"buffer_size": 201,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Exp_group.php",
+			"settings":
+			{
+				"buffer_size": 203,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Acct_group.php",
+			"settings":
+			{
+				"buffer_size": 295,
+				"line_ending": "Unix"
+			}
+		}
+>>>>>>> Stashed changes
 	],
 	"build_system": "",
-	"build_system_choices":
-	[
-	],
-	"build_varint": "",
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -108,11 +202,7 @@
 	},
 	"console":
 	{
-		"height": 0.0,
-		"history":
-		[
-			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
-		]
+		"height": 0.0
 	},
 	"distraction_free":
 	{
@@ -123,6 +213,7 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+<<<<<<< Updated upstream
 	"expanded_folders":
 	[
 		"/Applications/MAMP/htdocs/easyProcess",
@@ -134,16 +225,24 @@
 		"/Applications/MAMP/htdocs/easyProcess/app/models/Expense.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/models/Exp_group.php",
 		"/Applications/MAMP/htdocs/easyProcess/public/js/local.js",
+=======
+	"file_history":
+	[
+		"/Applications/MAMP/htdocs/easyProcess/app/models/Bank.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/Nav/nav.blade.php",
+>>>>>>> Stashed changes
 		"/Applications/MAMP/htdocs/easyProcess/app/views/admin/_layouts/default.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/public/css/nav.css",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/admin/_partials/assets.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/main.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/app/views/payment/start.blade.php",
+		"/Applications/MAMP/htdocs/easyProcess/public/js/local.js",
 		"/Applications/MAMP/htdocs/easyProcess/public/css/main.css",
 		"/Applications/MAMP/htdocs/easyProcess/app/controllers/payment/PaymentController.php",
-		"/Applications/MAMP/htdocs/easyProcess/app/views/admin/_partials/assets.blade.php",
-		"/Applications/MAMP/htdocs/easyProcess/public/css/nav.css",
 		"/Applications/MAMP/htdocs/easyProcess/public/css/local.css",
 		"/Applications/MAMP/htdocs/easyProcess/public/css/bootstrap.min.css",
 		"/Applications/MAMP/htdocs/easyProcess/app/views/payment/index.blade.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/config/local/app.php",
-		"/Applications/MAMP/htdocs/easyProcess/app/views/Nav/nav.blade.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/views/payment/summary.blade.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/config/mail.php",
 		"/Applications/MAMP/htdocs/easyProcess/app/config/local/mail.php",
@@ -239,6 +338,256 @@
 		{
 			"sheets":
 			[
+<<<<<<< Updated upstream
+=======
+				{
+					"buffer": 0,
+					"file": "app/views/reimbursement/new_report.blade.php",
+					"settings":
+					{
+						"buffer_size": 2370,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1304,
+								1304
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 708.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/reimbursement/expense_list.blade.php",
+					"settings":
+					{
+						"buffer_size": 286,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								178,
+								178
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/payment/create.blade.php",
+					"settings":
+					{
+						"buffer_size": 4534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1764,
+								1764
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 907.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/routes.php",
+					"settings":
+					{
+						"buffer_size": 4122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2586,
+								2606
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 228.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/controllers/reimburse/ReimburseController.php",
+					"settings":
+					{
+						"buffer_size": 1639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1497,
+								1497
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/payment/downpayments.blade.php",
+					"settings":
+					{
+						"buffer_size": 1600,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								40,
+								19
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/models/Expense.php",
+					"settings":
+					{
+						"buffer_size": 201,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								201,
+								201
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/models/Exp_group.php",
+					"settings":
+					{
+						"buffer_size": 203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22,
+								22
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/models/Acct_group.php",
+					"settings":
+					{
+						"buffer_size": 295,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+>>>>>>> Stashed changes
 			]
 		}
 	],
@@ -277,8 +626,6 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
-	"project": "easyProcess.sublime-project",
 	"replace":
 	{
 		"height": 42.0
@@ -287,7 +634,6 @@
 	"select_file":
 	{
 		"height": 0.0,
-		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -296,32 +642,15 @@
 	"select_project":
 	{
 		"height": 0.0,
-		"last_filter": "",
 		"selected_items":
 		[
 		],
 		"width": 0.0
-	},
-	"select_symbol":
-	{
-		"height": 0.0,
-		"last_filter": "",
-		"selected_items":
-		[
-		],
-		"width": 0.0
-	},
-	"selected_group": 0,
-	"settings":
-	{
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 229.0,
-	"status_bar_visible": true,
-	"template_settings":
-	{
-	}
+	"status_bar_visible": true
 }

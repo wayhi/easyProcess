@@ -2,7 +2,6 @@
 @section('main')
 
 
-
 <h2 align='center'>个人报销</h2>
 
 <div class='row'>
@@ -71,18 +70,18 @@
 </div>
 <div class='row'>
 	<button data-target="#myModal" href="{{URL::route('reimburse.expense_list')}}" data-toggle="modal" class="btn btn-small btn-info" type="button">新的费用</button>
-	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
+	<div id="myModal" class="modal hide fade"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h3 id="myModalLabel">添加费用 New Expense：</h3>
-            </div>
-            <div class="modal-body">
-              </div>
-            <div class="modal-footer">
-              <button class="btn btn-success btn-small" data-dismiss="modal">确定</button>
-            </div>
+              <h3 id="myModalLabel">选择费用类型：</h3>
+         </div>
+         <div class="modal-body"></div>
+         <div class="modal-footer">
+              <button class="btn btn-default btn-small" data-dismiss="modal">关闭</button>
+         </div>
 
-          </div>
+    </div>
+    
 	<a type='button' class='btn btn-success btn-small'>添加至新的申请</a>
 	<a type='button' class='btn btn-success btn-small'>添加至已有申请</a>
 	<a type='button' class='btn btn-danger btn-small'>删除费用</a>

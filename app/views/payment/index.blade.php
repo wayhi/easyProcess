@@ -4,7 +4,7 @@
 
     {{ Notification::showAll() }}
 
-    
+<hr>    
 <div class='container'>
     <table class="table">
         <thead>
