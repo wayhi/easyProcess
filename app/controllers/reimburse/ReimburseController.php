@@ -2,7 +2,7 @@
 namespace App\Controllers\reimburse;
 
 use Allocation,Notification,Attachement,Control,Count,Expense,Exp_group;
-use Input, Redirect, Sentry, View, Validator, DB, Crypt, Payment_approval;
+use Input, Redirect, Sentry, View, Validator, DB, Crypt, Reimbursement, Payment_approval;
 
 class ReimburseController extends \BaseController {
 
@@ -36,7 +36,35 @@ class ReimburseController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		if(Input::has('save')){
+			$rules = array(
+  			 'exp_date'=>'required|date',
+  			 'exp_amount'=>'required|numeric|between:0,99999999',
+  			 'exp_venue'=>'required|max:255',
+  			 );
+
+			$validator = Validator::make(Input::all(), $rules);
+    		if($validator->fails()) {
+  				//Former::withErrors($validator);
+  				return Redirect::route('reimburse.expense_input',['expense_id'=>Input::get('exp_type')])->withInput()
+  				->withErrors($validator);
+
+			}
+
+			$reimbursement = New Reimbursement();
+			$reimbursement->expense_id = intval(Input::get('exp_type'));
+			$reimbursement->owner_id = Sentry::getUser()->id;
+			$reimbursement->currency_id = intval(Input::get('exp_currency'));
+			$reimbursement->amount = floatval(Input::get('exp_amount'));
+			$reimbursement->transaction_date = Input::get('exp_date');
+			$reimbursement->venue = Input::get('exp_venue');
+			$reimbursement->purpose = Input::get('exp_purpose');
+			$reimbursement->save();
+			return Redirect::route('reimburse.create');
+
+		}
+
+
 	}
 
 	/**

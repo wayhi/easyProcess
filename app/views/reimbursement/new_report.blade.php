@@ -54,14 +54,15 @@
 		</tr>	
 	</thead>
 	<tbody>
+		@foreach($reimbursements as $reimburse)
 		<tr >
 			<td></td>
+			<td>$reimburse->purpose</td>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>$reimburse->transaction_date</td>
+			<td>$reimburse->amount</td>
 		</tr>	
-
+		@endforeach
 
 	</tbody>
 
