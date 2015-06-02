@@ -10,4 +10,5 @@ class Exp_group extends \Eloquent {
 		return $this->hasMany('Expense','group_id','id');
 	
 	}
+
 }

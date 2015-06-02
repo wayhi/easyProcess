@@ -11,5 +11,5 @@ class Expense extends \Eloquent {
 	
 	}
 
-	
+
 }
