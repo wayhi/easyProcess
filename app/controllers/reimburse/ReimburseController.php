@@ -25,7 +25,9 @@ class ReimburseController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('reimbursement.new_report');
+		$reimbursements = Reimbursement::with('exp_belongsTo')->ByOwner(Sentry::getUser()->id)->get();
+		
+		return View::make('reimbursement.new_report')->with('reimbursements',$reimbursements);
 	}
 
 	/**

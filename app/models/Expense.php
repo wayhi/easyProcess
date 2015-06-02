@@ -10,4 +10,6 @@ class Expense extends \Eloquent {
 		return $this->belongsTo('Exp_group','group_id','id');
 	
 	}
+
+	
 }

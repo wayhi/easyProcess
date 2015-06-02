@@ -46,7 +46,7 @@
 <table class="table n_table" >
 	<thead>
 		<tr>
-		<th></th>	
+		<th>{{Former::checkbox('exp_chk_all','')}}</th>	
 		<th>已记录费用</th>
 		<th>费用种类</th>
 		<th>日期</th>
@@ -56,11 +56,11 @@
 	<tbody>
 		@foreach($reimbursements as $reimburse)
 		<tr >
-			<td></td>
-			<td>$reimburse->purpose</td>
-			<td></td>
-			<td>$reimburse->transaction_date</td>
-			<td>$reimburse->amount</td>
+			<td><input type='checkbox' name='exp_chk[]' value='{{Crypt::encrypt($reimburse->id)}}'></td>
+			<td>{{$reimburse->purpose}}</td>
+			<td>{{$reimburse->exp_belongsTo->Description_CN}}</td>
+			<td>{{$reimburse->transaction_date}}</td>
+			<td>{{$reimburse->amount}}</td>
 		</tr>	
 		@endforeach
 
